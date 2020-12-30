@@ -1,7 +1,7 @@
 import typescript from 'rollup-plugin-typescript2';
 
-const srcFilePath = '../lib/index.ts';
-const destFilePathPrefix = '../lib/index.';
+const srcFilePath = './lib/index.ts';
+const distFilePathPrefix = '../lib/index.';
 
 const rollupParms = { tsconfig: 'ts-lib-config.json' };
 
@@ -9,7 +9,7 @@ export default [
   {
     input: srcFilePath,
     output: {
-      file: destFilePathPrefix + 'esm.js',
+      file: distFilePathPrefix + 'esm.js',
       format: 'esm',
     },
     plugins: [typescript(rollupParms)],
@@ -17,7 +17,7 @@ export default [
   {
     input: srcFilePath,
     output: {
-      file: destFilePathPrefix + 'js',
+      file: distFilePathPrefix + 'js',
       format: 'cjs',
     },
     plugins: [typescript(rollupParms)],
