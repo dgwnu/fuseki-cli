@@ -17,9 +17,14 @@ At this moment there is only some prelimannary support to provide and configure 
 
 ## CLI-library
 
-This package provides alse a __TypeScript__ based library to reuse and /or extend the Cli-functionality.  
+This package provides a __TypeScript__ based library to reuse and /or extend the CLI-functionality.  
   
-Import library in your TS-application:
+Import library in your TS-application and use it as follows:
 ````
-import {  } from '@dgwnu/fuseki-cli';
+import { fusekiServices } from '@dgwnu/fuseki-cli';
+
+// run Fuseki Server
+const output = fusekiServices('run');
+console.log(`Fuseki services start output ${output}`);
+
 ````

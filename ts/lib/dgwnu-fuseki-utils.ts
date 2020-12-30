@@ -1,8 +1,8 @@
 /**
- * DGWNU Utils to Install and Configurate Fuseki Tripple Stores
+ * DGWNU Utils to use Fuseki Services
  */
  
-import { execOsShellCommand, systemConfigInfo } from './dgwnu-tripple-store-utils';
+import { execOsShellCommand, systemConfigInfo } from './dgwnu-system-utils';
 
 /**
  * Run Fuseki-server as a service (will nor restart after reboot)
@@ -32,11 +32,5 @@ export function fusekiServices(command: 'run' | 'start' | 'restart' | 'stop') {
     return runResult;
 }
 
-/**
- * Start Fuseki-server as a service
- */
-export function startFusekiService() {
-
-}
 
 
