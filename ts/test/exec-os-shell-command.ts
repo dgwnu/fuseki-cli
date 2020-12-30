@@ -3,7 +3,7 @@
  */
 
 import { argv } from 'process';
-import { execOsShellCommand } from '../lib/dgwnu-tripple-store-utils';
+import { execOsShellCommand } from '../lib/dgwnu-system-utils';
 import { type, release, platform } from 'os';
 
 console.log({ osType: type(), osRelease: release(), osPlatform: platform() });
