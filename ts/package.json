@@ -1,0 +1,44 @@
+{
+  "name": "@dgwnu/fuseki-dev-ts",
+  "version": "0.0.1",
+  "description": "Fuseki NPM CLI application development in TypeScript",
+  "scripts": {
+    "build": "npm run build:lib && npm run build:cli",
+    "build:cli": "tsc -p ts-cli-config.json",
+    "build:lib": "rollup -c",
+    "fuseki:install:mac": "brew install fuseki && npm run fuseki:postinstall:mac",
+    "fuseki:postinstall:mac": "cp fuseki/shiro.ini /usr/local/var/fuseki",
+    "fuseki:uninstall:mac": "brew uninstall fuseki",
+    "fuseki:add:dataset:dgwnu": "curl -X POST -H Content-Type:text/turtle -T fuseki/config/dgwnu.ttl http://localhost:3030/$/datasets",
+    "fuseki:remove:dataset:dgwnu": "curl -X DELETE http://localhost:3030/$/datasets/dgwnu",
+    "test:exec:os:shell:command": "ts-node -P ts-node-config.json test/exec-os-shell-command.ts ls",
+    "fuseki:cli:run": "ts-node -P ts-node-config.json bin/fuseki-cli.ts run",
+    "fuseki:cli:start": "ts-node -P ts-node-config.json bin/fuseki-cli.ts start",
+    "fuseki:cli:restart": "ts-node -P ts-node-config.json bin/fuseki-cli.ts restart",
+    "fuseki:cli:stop": "ts-node -P ts-node-config.json bin/fuseki-cli.ts stop"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dgwnu/tripple-stores.git"
+  },
+  "keywords": [
+    "fuseki",
+    "cli",
+    "development",
+    "typescript"
+  ],
+  "author": "Onno Haldar <onno@haldar.nl>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dgwnu/tripple-stores/issues"
+  },
+  "homepage": "https://github.com/dgwnu/tripple-stores#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^14.14.16",
+    "rollup": "^2.35.1",
+    "rollup-plugin-typescript2": "^0.29.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  }
+}
