@@ -7,6 +7,7 @@ Build all Script:  ````npm run build````
 ## Fuseki CLI
 
 Mac Fuseki Server installation and configuration is based on HomeBrew.  
+[See install Fuseki on a Mac with Brew](https://brewinstall.org/install-fuseki-on-mac-with-brew/).
 
 CLI Build Script:  ````npm run build:cli````
   

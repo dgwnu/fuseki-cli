@@ -2,10 +2,10 @@
   "name": "@dgwnu/fuseki-cli",
   "version": "0.0.1",
   "description": "Fuseki NPM CLI application",
-  "main": "lib/index.js",
-  "module": "lib/index.esm.js",
+  "main": "dist/lib/index.js",
+  "module": "dist/lib/index.esm.js",
   "bin": {
-    "fuseki-cli": "bin/fuseki-cli.js"
+    "fuseki-cli": "dist/bin/fuseki-cli.js"
   },
   "scripts": {
     "test": "echo test"
