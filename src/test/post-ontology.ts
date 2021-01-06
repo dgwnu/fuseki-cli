@@ -3,12 +3,14 @@
  * Fuseki Cli Test Script to develop FormData Upload to Fuseki Server
  */
 
+import { resolve } from 'path';
 import * as FormData from 'form-data';
 import { request } from 'http';
 import { createReadStream } from 'fs';
 
-console.log(__dirname);
-const readStream = createReadStream('./test-ontology.ttl');
+const uploadFilePath = resolve(__dirname, 'test-ontology.ttl');
+console.log(uploadFilePath);
+const readStream = createReadStream(uploadFilePath);
  
 const form = new FormData();
 form.append('', readStream);
