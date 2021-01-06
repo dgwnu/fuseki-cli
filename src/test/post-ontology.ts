@@ -29,5 +29,5 @@ const req = request(
       console.log(response.statusCode); // 200
     }
   );
-   
-form.pipe(req);
+
+req.end();
