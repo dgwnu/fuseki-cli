@@ -12,6 +12,7 @@
     "fuseki:add:dataset:dgwnu": "curl -X POST -H Content-Type:text/turtle -T fuseki/config/dgwnu.ttl http://localhost:3030/$/datasets",
     "fuseki:remove:dataset:dgwnu": "curl -X DELETE http://localhost:3030/$/datasets/dgwnu",
     "test:exec:os:shell:command": "ts-node -P ts-node-config.json test/exec-os-shell-command.ts ls",
+    "test:post:ontology": "ts-node -P ts-node-config.json test/post-ontology.ts",
     "fuseki:cli:run": "ts-node -P ts-node-config.json bin/fuseki-cli.ts run",
     "fuseki:cli:start": "ts-node -P ts-node-config.json bin/fuseki-cli.ts start",
     "fuseki:cli:restart": "ts-node -P ts-node-config.json bin/fuseki-cli.ts restart",
@@ -39,5 +40,8 @@
     "rollup-plugin-typescript2": "^0.29.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "form-data": "^3.0.0"
   }
 }
