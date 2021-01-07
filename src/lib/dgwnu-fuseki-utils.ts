@@ -48,23 +48,23 @@ export function fusekiServices(command: 'run' | 'start' | 'restart' | 'stop') {
 
 
 export function serverStatus(serverUrl: string = 'http://localhost:3030') {
-    return new Observable<void>(observer => {
         const serverPingUrlPath = serverUrl + serverApiPath + 'ping';
 
-        const req = new ClientRequest(serverPingUrlPath, response => {
+        const req = new ClientRequest(serverPingUrlPath).method = 'GET';
+        return req.toString();    
+}
 
-            req.on('error', error => {
-                observer.error();
+
+
+/**
+             // on each data next chunk from stream
+            response.on('data', (dateTimeStamp: string) => {
+                observer.next(dateTimeStamp);
             });
-            
-            req.on('end', () => {
-                observer.next();
+
+            response.on('end', () => {
                 observer.complete();
             });
 
-        });
-
-        req.method = 'GET';
-        req.end();
-    });
-}
+        }
+ */
