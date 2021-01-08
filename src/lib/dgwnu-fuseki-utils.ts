@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 import { execOsShellCommand, systemConfigInfo } from './dgwnu-system-utils';
 
 /**
- * Defaults
+ * Fuseki Server Defaults
  */
 axios.defaults.baseURL = 'http://localhost:3030';
 
