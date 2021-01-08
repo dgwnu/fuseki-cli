@@ -5,7 +5,7 @@
 "use strict"
 
 import { argv } from 'process';
-import { fusekiServices, serverStatus } from '../lib/dgwnu-fuseki-utils';
+import { fusekiServices, fusekiPing } from '../lib/dgwnu-fuseki-utils';
 
 const command = argv[2];
 console.log(`DGWNU - Fuseki CLI - ${command}`);
@@ -33,8 +33,9 @@ switch (command) {
         break;
     }
 
-    case 'status': {
-        result = serverStatus();
+    case 'ping': {
+        fusekiPing();
+        result = 'Pinged Fuseki Server...'
         break;
     }
 

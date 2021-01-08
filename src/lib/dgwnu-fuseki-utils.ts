@@ -54,6 +54,6 @@ export function fusekiPing() {
     observerable.subscribe(
         data => console.log('data: ', data),
         error => console.log(error),
-        () => console.log('completed!');
+        () => console.log('completed!')
     );
 }
