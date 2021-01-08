@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
       "outDir": "../dist/lib",
-      "target": "es2017",
-      "module": "esnext",
-      "lib": ["es2017"],
+      "target": "es2015",
+      "module": "commonjs",
+      "lib": ["es2015"],
       "sourceMap": true,
       "strict": true,
       "strictFunctionTypes": true,
