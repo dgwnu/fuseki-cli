@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
       "outDir": "../dist/lib",
-      "target": "es5",
+      "target": "es2017",
       "module": "esnext",
-      "lib": ["es2015"],
+      "lib": ["es2017"],
       "sourceMap": true,
       "strict": true,
       "strictFunctionTypes": true,
