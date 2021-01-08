@@ -5,7 +5,7 @@
 /**
  * Node Package Imports
  */
-import { ClientRequest, ClientRequestArgs } from 'http';
+import { default as axios } from 'axios';
 import { Observable } from 'rxjs';
 
 /**
@@ -14,14 +14,10 @@ import { Observable } from 'rxjs';
 import { execOsShellCommand, systemConfigInfo } from './dgwnu-system-utils';
 
 /**
- * Local BREW INSTALL FUSEKI SERVER - Fuseki Server Protocal Paths 
- * @ see: <https://jena.apache.org/documentation/fuseki2/fuseki-server-protocol.html>
+ * Defaults
  */
-const fusekiClientArgs: ClientRequestArgs = {
-    host: 'localhost',
-    port: 3030,
-    path: '/$/'
-};
+axios.defaults.baseURL = 'http://localhost:3030';
+
 
 /**
  * Run Fuseki-server as a service (will nor restart after reboot)
@@ -53,8 +49,6 @@ export function fusekiServices(command: 'run' | 'start' | 'restart' | 'stop') {
 
 
 export function fusekiPing() {
-    let pingArgs = fusekiClientArgs;
-    pingArgs.path += 'ping';
-    pingArgs.method = 'POST';
+    axios.get('/$/ping')
     
 }
