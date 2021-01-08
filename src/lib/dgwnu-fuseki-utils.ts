@@ -5,7 +5,7 @@
 /**
  * Node Package Imports
  */
-import { ClientRequest } from 'http';
+import { ClientRequest, ClientRequestArgs } from 'http';
 import { Observable } from 'rxjs';
 
 /**
@@ -14,9 +14,12 @@ import { Observable } from 'rxjs';
 import { execOsShellCommand, systemConfigInfo } from './dgwnu-system-utils';
 
 /**
- * Global Constants
+ * Fuseki Server Protocal Paths 
+ * @ see: <https://jena.apache.org/documentation/fuseki2/fuseki-server-protocol.html>
  */
-const serverApiPath = '/$/';
+const serverApiPath = '/$';
+const pingApiPath = serverApiPath + '/ping';
+const statusApiPath = 
 
 /**
  * Run Fuseki-server as a service (will nor restart after reboot)

@@ -2,6 +2,9 @@
 
 Notes while developing Fuseki Cli
 
+## Fuseki Server Api
+
+[Fuseki HTTP Administration Protocol](https://jena.apache.org/documentation/fuseki2/fuseki-server-protocol.html)
 
 ## Convert from Curl exmaples to JS/TS
 
