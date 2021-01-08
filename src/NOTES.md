@@ -6,6 +6,10 @@ Notes while developing Fuseki Cli
 
 [Fuseki HTTP Administration Protocol](https://jena.apache.org/documentation/fuseki2/fuseki-server-protocol.html)
 
+[5 Ways to Make HTTP Requests in Node.js](https://www.twilio.com/blog/2017/08/http-requests-in-node-js.html)
+
+Choosed for [AXIOS](https://github.com/axios/axios)
+
 ## Convert from Curl exmaples to JS/TS
 
 [Online Dev Tools - Curl](https://onlinedevtools.in/curl)

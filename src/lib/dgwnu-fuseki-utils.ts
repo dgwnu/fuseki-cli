@@ -14,12 +14,14 @@ import { Observable } from 'rxjs';
 import { execOsShellCommand, systemConfigInfo } from './dgwnu-system-utils';
 
 /**
- * Fuseki Server Protocal Paths 
+ * Local BREW INSTALL FUSEKI SERVER - Fuseki Server Protocal Paths 
  * @ see: <https://jena.apache.org/documentation/fuseki2/fuseki-server-protocol.html>
  */
-const serverApiPath = '/$';
-const pingApiPath = serverApiPath + '/ping';
-const statusApiPath = 
+const fusekiClientArgs: ClientRequestArgs = {
+    host: 'localhost',
+    port: 3030,
+    path: '/$/'
+};
 
 /**
  * Run Fuseki-server as a service (will nor restart after reboot)
@@ -50,24 +52,9 @@ export function fusekiServices(command: 'run' | 'start' | 'restart' | 'stop') {
 }
 
 
-export function serverStatus(serverUrl: string = 'http://localhost:3030') {
-        const serverPingUrlPath = serverUrl + serverApiPath + 'ping';
-
-        const req = new ClientRequest(serverPingUrlPath).method = 'GET';
-        return req.toString();    
+export function fusekiPing() {
+    let pingArgs = fusekiClientArgs;
+    pingArgs.path += 'ping';
+    pingArgs.method = 'POST';
+    
 }
-
-
-
-/**
-             // on each data next chunk from stream
-            response.on('data', (dateTimeStamp: string) => {
-                observer.next(dateTimeStamp);
-            });
-
-            response.on('end', () => {
-                observer.complete();
-            });
-
-        }
- */
