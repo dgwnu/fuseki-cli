@@ -6,6 +6,7 @@
  * Node Package Imports
  */
 import { default as axios } from 'axios';
+import { waitForDebugger } from 'inspector';
 import { from } from 'rxjs';
 
 /**
@@ -49,11 +50,16 @@ export function fusekiServices(command: 'run' | 'start' | 'restart' | 'stop') {
 
 
 export function fusekiPing() {
-    const observerable = from(axios.get('/$/ping'));
+    const observerable = from(axios.get('/$/ping', { responseType: 'text' }));
+    let response = '';
 
-    observerable.subscribe(
-        data => console.log('data: ', data),
-        error => console.log(error),
-        () => console.log('completed!')
-    );
+    {
+        observerable.subscribe(
+            data => response = data.data,
+            error => response = '<< Fuseki Server Down! >>'
+        );
+        
+    } while (response == '');
+
+    return response;
 }
