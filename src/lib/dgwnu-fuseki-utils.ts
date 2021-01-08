@@ -6,8 +6,7 @@
  * Node Package Imports
  */
 import { default as axios } from 'axios';
-import { waitForDebugger } from 'inspector';
-import { from } from 'rxjs';
+import { Observable } from 'rxjs';
 
 /**
  * Local Library Imports
@@ -48,18 +47,17 @@ export function fusekiServices(command: 'run' | 'start' | 'restart' | 'stop') {
     return runResult;
 }
 
-
 export function fusekiPing() {
-    const observerable = from(axios.get('/$/ping', { responseType: 'text' }));
-    let response = '';
-
-    {
-        observerable.subscribe(
-            data => response = data.data,
-            error => response = '<< Fuseki Server Down! >>'
-        );
-        
-    } while (response == '');
-
-    return response;
+    return new Observable<string>(observer => {
+        axios.get('/$/ping', { responseType: 'text' })
+        .then(response => {
+            observer.next(response.data);
+        })
+        .catch(error =>{
+            observer.next('<-- Fuseki Server is Down! -->');
+        })
+        .finally(() => {
+            observer.complete();
+        });
+    });
 }

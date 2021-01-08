@@ -34,7 +34,12 @@ switch (command) {
     }
 
     case 'ping': {
-        result = fusekiPing();
+        result = 'Ping Fuseki Server';
+        fusekiPing().subscribe(
+            data => console.log(data),
+            error => console.log(error),
+            () => console.log('Server Ping Executed')
+        );
         break;
     }
 
