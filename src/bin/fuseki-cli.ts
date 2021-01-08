@@ -9,7 +9,7 @@ import { fusekiServices, fusekiPing } from '../lib/dgwnu-fuseki-utils';
 
 const command = argv[2];
 console.log(`DGWNU - Fuseki CLI - ${command}`);
-let result = undefined;
+let result: string = undefined;
 
 switch (command) {
 
@@ -34,12 +34,7 @@ switch (command) {
     }
 
     case 'ping': {
-        result = 'Ping Fuseki Server';
-        fusekiPing().subscribe(
-            data => console.log(data),
-            error => console.log(error),
-            () => console.log('Server Ping Executed')
-        );
+        result = await fusekiPing();
         break;
     }
 
