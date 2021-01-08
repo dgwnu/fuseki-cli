@@ -47,17 +47,15 @@ export function fusekiServices(command: 'run' | 'start' | 'restart' | 'stop') {
     return runResult;
 }
 
-export async function fusekiPing() {
-    return new Observable<string>(observer => {
-        axios.get('/$/ping', { responseType: 'text' })
-        .then(response => {
-            observer.next('Fuseki Server is Up: ' + response.data);
-        })
-        .catch(error => {
-            observer.error('Fuseki Server is Down!');
-        })
-        .finally(() => {
-            observer.complete();
-        });
+export const fusekiPing = new Observable<string>(observer => {
+    axios.get('/$/ping', { responseType: 'text' })
+    .then(response => {
+        observer.next('Fuseki Server is Up: ' + response.data);
+    })
+    .catch(error => {
+        observer.error('Fuseki Server is Down!');
+    })
+    .finally(() => {
+        observer.complete();
     });
-}
+});

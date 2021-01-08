@@ -9,27 +9,26 @@ import { fusekiServices, fusekiPing } from '../lib/dgwnu-fuseki-utils';
 
 const command = argv[2];
 console.log(`DGWNU - Fuseki CLI - ${command}`);
-let result: string = undefined;
 
 switch (command) {
 
     case 'run': {
-        result = fusekiServices('run');
+        displayResult(fusekiServices('run'));
         break;
     }
 
     case 'start': {
-        result = fusekiServices('start');
+        displayResult(fusekiServices('start'));
         break;
     }
 
     case 'restart': {
-        result = fusekiServices('restart');
+        displayResult(fusekiServices('restart'));
         break;
     }
 
     case 'stop': {
-        result = fusekiServices('stop');
+        displayResult(fusekiServices('stop'));
         break;
     }
 
@@ -45,8 +44,13 @@ switch (command) {
     }
 }
 
-if (result) {
-    console.log(result);
-} else {
-    console.log('No result output!');
+
+function displayResult(result: string) {
+
+    if (result) {
+        console.log(result);
+    } else {
+        console.log('No result output!');
+    }
+
 }
