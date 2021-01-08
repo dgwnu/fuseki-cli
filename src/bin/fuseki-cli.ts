@@ -34,8 +34,7 @@ switch (command) {
     }
 
     case 'ping': {
-        fusekiPing();
-        result = 'Pinged Fuseki Server...'
+        result = fusekiPing();
         break;
     }
 
