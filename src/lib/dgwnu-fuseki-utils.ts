@@ -6,7 +6,7 @@
  * Node Package Imports
  */
 import { default as axios } from 'axios';
-import { Observable } from 'rxjs';
+import { from } from 'rxjs';
 
 /**
  * Local Library Imports
@@ -49,6 +49,11 @@ export function fusekiServices(command: 'run' | 'start' | 'restart' | 'stop') {
 
 
 export function fusekiPing() {
-    axios.get('/$/ping')
-    
+    const observerable = from(axios.get('/$/ping'));
+
+    observerable.subscribe(
+        data => console.log('data: ', data),
+        error => console.log(error),
+        () => console.log('completed!');
+    );
 }
