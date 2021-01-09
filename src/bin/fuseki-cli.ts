@@ -6,7 +6,7 @@
 
 import { argv } from 'process';
 import { inspect } from 'util';
-import { fusekiServices, fusekiPing, fusekiServer } from '../lib/dgwnu-fuseki-utils';
+import { fusekiServices, fusekiPing, fusekiServer, fusekiDatasets } from '../lib/dgwnu-fuseki-utils';
 
 const command = argv[2];
 console.log(`DGWNU - Fuseki CLI - ${command}`);
@@ -43,6 +43,14 @@ switch (command) {
 
     case 'server': {
         fusekiServer.subscribe(
+            data => displayResult(data),
+            error => displayResult(error)
+        );
+        break;
+    }
+
+    case 'datasets': {
+        fusekiDatasets().subscribe(
             data => displayResult(data),
             error => displayResult(error)
         );

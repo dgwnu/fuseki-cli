@@ -80,10 +80,36 @@ export const fusekiServer = new Observable<any>(observer => {
     });
 });
 
+/**
+ * Fuseki Server Protocol - Dataset(s) Service Config Information
+ * @param datasetName Name of Dataset (default is all Datasets)
+ */
+export function fusekiDatasets(datasetName?: string) {
+    const datasetPath = datasetName ? '/' + datasetName : '';
 
-export function fusekiAddDataset(assemblerFilePath: string) {
     return new Observable<any>(observer => {
-        axios.post('/$/datasets', { data: createReadStream(assemblerFilePath) })
+        axios.get(`/$/datasets${datasetPath}`)
+        .then(response => {
+            observer.next(response.data);
+        })
+        .catch(error => {
+            observer.error(error);
+        })
+        .finally(() => {
+            observer.complete();
+        });
+    });
+}
+
+/**
+ * Fuseki Server Protocol - Add Dataset Service to Fuseki Server
+ * @param datasetName Name of the Dataset
+ * @param assemblerFilePath Path to the Dataset Assembler File
+ */
+export function fusekiAddDataset(datasetName: string, assemblerFilePath: string) {
+    return new Observable<any>(observer => {
+        // PM get upload path from dataset config!
+        axios.post(`/$/datasets/${datasetName}/upload`, { data: createReadStream(assemblerFilePath) })
         .then(response => {
             observer.next(response.data);
         })
