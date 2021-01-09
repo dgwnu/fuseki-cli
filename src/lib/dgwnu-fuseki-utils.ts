@@ -121,3 +121,23 @@ export function fusekiAddDataset(assemblerFilePath: string) {
         });
     });
 }
+
+/**
+ * Fuseki Server Protocol - Delete Dataset Service from Fuseki Server
+ * @param datasetname name of the Dataset on the server
+ */
+export function fusekiRemoveDataset(datasetname: string) {
+    return new Observable<any>(observer => {
+        // PM get upload path from dataset config!
+        axios.delete(`/$/datasets/${datasetname}`)
+        .then(response => {
+            observer.next(response.data);
+        })
+        .catch(error => {
+            observer.error(error);
+        })
+        .finally(() => {
+            observer.complete();
+        });
+    });
+}
