@@ -18,7 +18,8 @@
     "fuseki:cli:restart": "ts-node -P ts-node-config.json bin/fuseki-cli.ts restart",
     "fuseki:cli:stop": "ts-node -P ts-node-config.json bin/fuseki-cli.ts stop",
     "fuseki:cli:ping": "ts-node -P ts-node-config.json bin/fuseki-cli.ts ping",
-    "fuseki:cli:server": "ts-node -P ts-node-config.json bin/fuseki-cli.ts server"
+    "fuseki:cli:server": "ts-node -P ts-node-config.json bin/fuseki-cli.ts server",
+    "fuseki:cli:datasets": "ts-node -P ts-node-config.json bin/fuseki-cli.ts datasets"
   },
   "repository": {
     "type": "git",
