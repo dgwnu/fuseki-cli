@@ -74,7 +74,7 @@ export const fusekiServer = new Observable<any>(observer => {
         observer.next(response.data);
     })
     .catch(error => {
-        observer.error(error);
+        observer.error(error.response.data);
     })
     .finally(() => {
         observer.complete();
@@ -94,7 +94,7 @@ export function fusekiDatasetConfig(datasetName?: string) {
             observer.next(response.data);
         })
         .catch(error => {
-            observer.error(error);
+            observer.error(error.response.data);
         })
         .finally(() => {
             observer.complete();
@@ -119,7 +119,7 @@ export function fusekiAddDataset(assemblerFilePath: string) {
             observer.next(response.data);
         })
         .catch(error => {
-            observer.error(error);
+            observer.error(error.response.data);
         })
         .finally(() => {
             observer.complete();
@@ -139,7 +139,7 @@ export function fusekiRemoveDataset(datasetname: string) {
             observer.next(response.data);
         })
         .catch(error => {
-            observer.error(error);
+            observer.error(error.response.data);
         })
         .finally(() => {
             observer.complete();
