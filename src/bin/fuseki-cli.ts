@@ -33,7 +33,10 @@ switch (command) {
     }
 
     case 'ping': {
-        result = await fusekiPing();
+        fusekiPing.subscribe(
+            up => displayResult(up),
+            down => displayResult(down)
+        );
         break;
     }
 
