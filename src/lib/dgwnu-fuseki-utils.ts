@@ -5,6 +5,7 @@
 /**
  * Node Package Imports
  */
+import { createReadStream } from 'fs';
 import axios from 'axios';
 import { Observable } from 'rxjs';
 
@@ -66,7 +67,7 @@ export const fusekiPing = new Observable<string>(observer => {
 /**
  * Fuseki Server Protocol - Server Information
  */
-export const fusekiServer = new Observable<{}>(observer => {
+export const fusekiServer = new Observable<any>(observer => {
     axios.get('/$/server')
     .then(response => {
         observer.next(response.data);
@@ -78,3 +79,19 @@ export const fusekiServer = new Observable<{}>(observer => {
         observer.complete();
     });
 });
+
+
+export function fusekiAddDataset(assemblerFilePath: string) {
+    return new Observable<any>(observer => {
+        axios.post('/$/datasets', { data: createReadStream(assemblerFilePath) })
+        .then(response => {
+            observer.next(response.data);
+        })
+        .catch(error => {
+            observer.error(error);
+        })
+        .finally(() => {
+            observer.complete();
+        });
+    });
+}
