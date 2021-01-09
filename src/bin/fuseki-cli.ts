@@ -14,7 +14,8 @@ import { Observable, throwError } from 'rxjs';
 /**
  * CLI Library Modules
  */
-import { fusekiServices, fusekiPing, fusekiServer, fusekiDatasetConfig, fusekiAddDataset } from '../lib/dgwnu-fuseki-utils';
+import { fusekiServices, fusekiPing, fusekiServer, fusekiDatasetConfig, 
+    fusekiAddDataset, fusekiRemoveDataset } from '../lib/dgwnu-fuseki-utils';
 
 //
 // START CLI Script
@@ -114,7 +115,7 @@ function fusekiDatasets(parms: string[]) {
         if (['-a', '--add'].find(parm => parm == parms[0])) {
             observerable = fusekiAddDataset(parms[1])
         } else if (['-d', '-delete'].find(parm => parm == parms[0])) {
-
+            observerable = fusekiRemoveDataset(parms[1])
         } else {
             observerable = throwError(`Parms "${parms[0]} ${parms[1]}" are not correct specified!`);
         }
