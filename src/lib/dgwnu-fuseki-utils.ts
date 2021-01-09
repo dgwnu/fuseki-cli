@@ -5,7 +5,7 @@
 /**
  * Node Package Imports
  */
-import { createReadStream } from 'fs';
+import { createReadStream, readFileSync } from 'fs';
 import axios from 'axios';
 import { Observable, throwError } from 'rxjs';
 
@@ -112,7 +112,8 @@ export function fusekiAddDataset(assemblerFilePath: string) {
     return new Observable<any>(observer => {
         // PM get upload path from dataset config!
         uploadApi.post('/$/datasets', { 
-            data: createReadStream(assemblerFilePath),
+//            data: createReadStream(assemblerFilePath),
+            data: readFileSync(assemblerFilePath),
         })
         .then(response => {
             observer.next(response.data);
