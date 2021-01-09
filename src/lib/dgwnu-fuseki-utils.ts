@@ -7,7 +7,7 @@
  */
 import { createReadStream } from 'fs';
 import axios from 'axios';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 /**
  * Local Library Imports
@@ -93,12 +93,34 @@ export const fusekiServer = new Observable<any>(observer => {
  * => 2nd parm: assembly file path of dataset to add | name of dataset to delete
  */
 export function fusekiDatasets(parms: string[]) {
-    return new Observable<any>(observer => {
+    let observerable: Observable<any>;
 
     if (parms.length < 2) {
         // No or one parm supplied
         // Retrieve dataset(s) configuration information
-        const datasetPath = parms.length == 1 ? '/' + parms[0] : '';
+        observerable = fusekiDatasetConfig(parms[0])
+    } else if (parms.length == 2) {
+        // two parms supplied
+        // add or delete dataset
+
+        if (['-a', '--add'].find(parm => parm == parms[0])) {
+            observerable = fusekiAddDataset(parms[1])
+        } else if (['-d', '-delete'].find(parm => parm == parms[0])) {
+
+        } else {
+            observerable = throwError(`Parm ${parms[0]} is not found or applicapable!`);
+        }
+
+    } else {
+        observerable = throwError(`To many Parms ${parms.length} !`);
+    }
+
+    return observerable;
+}
+
+export function fusekiDatasetConfig(datasetName?: string) {
+    return new Observable<any>(observer => {
+        const datasetPath = datasetName ? '/' + datasetName : '';
 
         axios.get(`/$/datasets${datasetPath}`)
         .then(response => {
@@ -110,25 +132,10 @@ export function fusekiDatasets(parms: string[]) {
         .finally(() => {
             observer.complete();
         });
-        
-    } else if (parms.length == 2) {
-        // two parms supplied
-        // add or delete dataset
-
-        if (['-a', '--add'].find(parm => parm == parms[0])) {
-            fusekiAddDataset(parms[1]).subscribe(
-                
-            );
-        } else if (['-d', '-delete'].find(parm => parm == parms[0])) {
-
-        }
-
-    } else {
-        observer.error('More than two parms supplied! ' + parms.join(' '));
-    }
 
     });
 }
+
 
 /**
  * Fuseki Server Protocol - Add Dataset Service to Fuseki Server
