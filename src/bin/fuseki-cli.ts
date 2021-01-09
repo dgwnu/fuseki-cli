@@ -90,7 +90,7 @@ switch (command) {
 
 /**
  * Fuseki Server Protocol - Dataset(s) Service Configuration
- * @param parms With process options
+ * @param parms for process options
  * 
  * One paramater supplied: dataset name
  * 
