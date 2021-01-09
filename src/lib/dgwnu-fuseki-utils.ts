@@ -66,7 +66,7 @@ export const fusekiPing = new Observable<string>(observer => {
 /**
  * Fuseki Server Protocol - Server Information
  */
-export const fusekiServer = new Observable<any>(observer => {
+export const fusekiServer = new Observable<{}>(observer => {
     axios.get('/$/server')
     .then(response => {
         observer.next(response.data);

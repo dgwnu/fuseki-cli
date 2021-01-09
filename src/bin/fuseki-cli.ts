@@ -5,6 +5,7 @@
 "use strict"
 
 import { argv } from 'process';
+import { inspect } from 'util';
 import { fusekiServices, fusekiPing, fusekiServer } from '../lib/dgwnu-fuseki-utils';
 
 const command = argv[2];
@@ -42,8 +43,8 @@ switch (command) {
 
     case 'server': {
         fusekiServer.subscribe(
-            data => displayResult(JSON.stringify(data)),
-            error => displayResult(JSON.stringify(error))
+            data => displayResult(data),
+            error => displayResult(error)
         );
         break;
     }
@@ -56,10 +57,14 @@ switch (command) {
 }
 
 
-function displayResult(result: string) {
+function displayResult(result: any) {
 
     if (result) {
-        console.log(result);
+        if (typeof result == 'string') {
+            console.log(result);
+        } else {
+            console.log(inspect(result, false, 3, true));
+        }
     } else {
         console.log('No result output!');
     }
