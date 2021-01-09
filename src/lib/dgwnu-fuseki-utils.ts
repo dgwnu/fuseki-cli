@@ -62,3 +62,19 @@ export const fusekiPing = new Observable<string>(observer => {
         observer.complete();
     });
 });
+
+/**
+ * Fuseki Server Protocol - Server Information
+ */
+export const fusekiServer = new Observable<any>(observer => {
+    axios.get('/$/server')
+    .then(response => {
+        observer.next(response.data);
+    })
+    .catch(error => {
+        observer.error(error);
+    })
+    .finally(() => {
+        observer.complete();
+    });
+});

@@ -5,7 +5,7 @@
 "use strict"
 
 import { argv } from 'process';
-import { fusekiServices, fusekiPing } from '../lib/dgwnu-fuseki-utils';
+import { fusekiServices, fusekiPing, fusekiServer } from '../lib/dgwnu-fuseki-utils';
 
 const command = argv[2];
 console.log(`DGWNU - Fuseki CLI - ${command}`);
@@ -36,6 +36,14 @@ switch (command) {
         fusekiPing.subscribe(
             up => displayResult(up),
             down => displayResult(down)
+        );
+        break;
+    }
+
+    case 'server': {
+        fusekiPing.subscribe(
+            data => displayResult(JSON.stringify(data)),
+            error => displayResult(JSON.stringify(error))
         );
         break;
     }
