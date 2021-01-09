@@ -84,21 +84,25 @@ export const fusekiServer = new Observable<any>(observer => {
  * Fuseki Server Protocol - Dataset(s) Service Config Information
  * @param datasetName Name of Dataset (default is all Datasets)
  */
-export function fusekiDatasets(datasetName?: string) {
-    const datasetPath = datasetName ? '/' + datasetName : '';
+export function fusekiDatasets(parms: string[]) {
 
-    return new Observable<any>(observer => {
-        axios.get(`/$/datasets${datasetPath}`)
-        .then(response => {
-            observer.next(response.data);
-        })
-        .catch(error => {
-            observer.error(error);
-        })
-        .finally(() => {
-            observer.complete();
+    if (parms.length < 2) {
+        const datasetPath = parms.length == 1 ? '/' + parms[0] : '';
+
+        return new Observable<any>(observer => {
+            axios.get(`/$/datasets${datasetPath}`)
+            .then(response => {
+                observer.next(response.data);
+            })
+            .catch(error => {
+                observer.error(error);
+            })
+            .finally(() => {
+                observer.complete();
+            });
         });
-    });
+    }
+
 }
 
 /**

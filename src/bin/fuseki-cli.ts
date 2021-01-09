@@ -8,11 +8,18 @@ import { argv } from 'process';
 import { inspect } from 'util';
 import { fusekiServices, fusekiPing, fusekiServer, fusekiDatasets } from '../lib/dgwnu-fuseki-utils';
 
-const command = argv[2] ? argv[2] : '(no value supplied)';
-const parms = argv[3] ? '-' + argv[3] : '' +
-    argv[4] ? '-' + argv[4] : '' +
-    argv[5] ? '-' + argv[5] : '' ;
-console.log(`DGWNU - Fuseki CLI - ${command}`);
+const command = argv[2];
+let parms: string[] = [];
+
+if (argv[3]) {
+    parms.push(argv[3]);
+}
+
+if (argv[4]) {
+    parms.push(argv[4]);
+}
+
+console.log(`DGWNU - Fuseki CLI - ${command} ${parms}`);
 
 switch (command) {
 
@@ -53,7 +60,10 @@ switch (command) {
     }
 
     case 'datasets': {
-        processDatasetsCommand(parms);
+        fusekiDatasets().subscribe(
+            data => displayResult(data),
+            error => displayResult(error)
+        );
         break;
     }
 
@@ -64,15 +74,6 @@ switch (command) {
     }
 }
 
-
-function processDatasetsCommand(parms: string) {
-    if (parms == '') {
-        fusekiDatasets().subscribe(
-            data => displayResult(data),
-            error => displayResult(error)
-        );
-    }
-}
 
 function displayResult(result: any) {
 
