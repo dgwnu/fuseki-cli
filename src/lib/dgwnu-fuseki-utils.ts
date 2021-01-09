@@ -81,8 +81,16 @@ export const fusekiServer = new Observable<any>(observer => {
 });
 
 /**
- * Fuseki Server Protocol - Dataset(s) Service Config Information
- * @param datasetName Name of Dataset (default is all Datasets)
+ * Fuseki Server Protocol - Dataset(s) Service Configuration
+ * @param parms With process options
+ * 
+ * One paramater supplied: dataset name
+ * 
+ * Two parameters supplied: 
+ * 
+ * => 1st parm: -a | --add | -d | --delete
+ * 
+ * => 2nd parm: assembly file path of dataset to add | name of dataset to delete
  */
 export function fusekiDatasets(parms: string[]) {
 
