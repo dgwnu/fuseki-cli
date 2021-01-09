@@ -18,7 +18,7 @@ import { execOsShellCommand, systemConfigInfo } from './dgwnu-system-utils';
  * Fuseki Server Defaults
  */
 axios.defaults.baseURL = 'http://localhost:3030';
-
+const uploadApi = axios.create();
 
 /**
  * Run Fuseki-server as a service (will nor restart after reboot)
@@ -107,9 +107,13 @@ export function fusekiDatasetConfig(datasetName?: string) {
  * @param assemblerFilePath Path to Dataset Assembler File
  */
 export function fusekiAddDataset(assemblerFilePath: string) {
+    uploadApi.defaults.headers['Content-Type'] = 'text/turtle';
+
     return new Observable<any>(observer => {
         // PM get upload path from dataset config!
-        axios.post('/$/datasets', { data: createReadStream(assemblerFilePath) })
+        uploadApi.post('/$/datasets', { 
+            data: createReadStream(assemblerFilePath),
+        })
         .then(response => {
             observer.next(response.data);
         })
