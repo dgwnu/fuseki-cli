@@ -109,7 +109,6 @@ export function fusekiDatasetConfig(datasetName?: string) {
  * @see <https://masteringjs.io/tutorials/axios/form-data>
  */
 export function fusekiAddDataset(assemblerFilePath: string) {
-    //uploadApi.defaults.headers['content-type'] = 'text/turtle';
     const formData = new FormData();
     formData.append('assembler', createReadStream(assemblerFilePath));
 
