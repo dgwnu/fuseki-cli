@@ -108,7 +108,7 @@ export function fusekiDatasets(parms: string[]) {
         } else if (['-d', '-delete'].find(parm => parm == parms[0])) {
 
         } else {
-            observerable = throwError(`Parm ${parms[0]} is not found or applicapable!`);
+            observerable = throwError(`Parms "${parms[0]} ${parms[1]}" are not correct specified!`);
         }
 
     } else {
