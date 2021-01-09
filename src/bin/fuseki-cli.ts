@@ -8,7 +8,10 @@ import { argv } from 'process';
 import { inspect } from 'util';
 import { fusekiServices, fusekiPing, fusekiServer, fusekiDatasets } from '../lib/dgwnu-fuseki-utils';
 
-const command = argv[2];
+const command = argv[2] ? argv[2] : '(no value supplied)' +
+    argv[3] ? '-' + argv[3] : '' +
+    argv[4] ? '-' + argv[4] : '' +
+    argv[5] ? '-' + argv[5] : '' ;
 console.log(`DGWNU - Fuseki CLI - ${command}`);
 
 switch (command) {
@@ -58,7 +61,7 @@ switch (command) {
     }
 
     default: {
-        console.log(`Missing or invalig param ${argv[2]}`);
+        console.log(`Missing or invalig param ${command}`);
         console.log('Param should be a: run, start, restart, stop');
         break;
     }
