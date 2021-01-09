@@ -63,7 +63,7 @@ function displayResult(result: any) {
         if (typeof result == 'string') {
             console.log(result);
         } else {
-            console.log(inspect(result, false, 3, true));
+            console.log(inspect(result, false, 5, true));
         }
     } else {
         console.log('No result output!');
