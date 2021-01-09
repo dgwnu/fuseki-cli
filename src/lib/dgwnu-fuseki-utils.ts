@@ -130,10 +130,34 @@ export function addDataset(assemblerFilePath: string) {
  * Fuseki Server Protocol - Delete Dataset Service from Fuseki Server
  * @param datasetname name of the Dataset on the server
  */
-export function removeDataset(datasetname: string) {
+export function removeDataset(datasetName: string) {
     return new Observable<any>(observer => {
         // PM get upload path from dataset config!
-        axios.delete(`/$/datasets/${datasetname}`)
+        axios.delete(`/$/datasets/${datasetName}`)
+        .then(response => {
+            observer.next(response.data);
+        })
+        .catch(error => {
+            observer.error(error.response.data);
+        })
+        .finally(() => {
+            observer.complete();
+        });
+    });
+}
+
+/**
+ * Refresh Dataset Contents with triples file
+ * @param datasetname Name of dataset to refresh
+ * @param triplesFilePath Path to triples file with refresh data
+ */
+export function refreshDataset(datasetname: string, triplesFilePath: string) {
+    const formData = new FormData();
+    formData.append('default', createReadStream(triplesFilePath));
+
+    return new Observable<any>(observer => {
+        // PM get upload path from dataset config!
+        axios.put(`/${datasetname}/data`, formData, { headers: formData.getHeaders() })
         .then(response => {
             observer.next(response.data);
         })
