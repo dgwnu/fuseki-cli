@@ -41,7 +41,7 @@ switch (command) {
     }
 
     case 'server': {
-        fusekiPing.subscribe(
+        fusekiServer.subscribe(
             data => displayResult(JSON.stringify(data)),
             error => displayResult(JSON.stringify(error))
         );
