@@ -60,7 +60,7 @@ switch (command) {
     }
 
     case 'datasets': {
-        fusekiDatasets().subscribe(
+        fusekiDatasets(parms).subscribe(
             data => displayResult(data),
             error => displayResult(error)
         );
