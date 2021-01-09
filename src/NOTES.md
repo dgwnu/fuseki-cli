@@ -10,8 +10,6 @@ Notes while developing Fuseki Cli
 
 Choosed for [AXIOS](https://github.com/axios/axios)
 
-## Convert from Curl exmaples to JS/TS
+### FormData Upload with AXIOS
 
-[Online Dev Tools - Curl](https://onlinedevtools.in/curl)
-
-[Multipart Form Data Request](https://wanago.io/2019/03/18/node-js-typescript-6-sending-http-requests-understanding-multipart-form-data/)
+[Axios FormData examples](<https://masteringjs.io/tutorials/axios/form-data>)
