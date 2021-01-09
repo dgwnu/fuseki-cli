@@ -118,6 +118,10 @@ export function fusekiDatasets(parms: string[]) {
     return observerable;
 }
 
+/**
+ * Fuseki Server Protocol - Dataset Service Configuration Information
+ * @param datasetName Name of the Dataset (all Datasets if not applied)
+ */
 export function fusekiDatasetConfig(datasetName?: string) {
     return new Observable<any>(observer => {
         const datasetPath = datasetName ? '/' + datasetName : '';
@@ -136,10 +140,8 @@ export function fusekiDatasetConfig(datasetName?: string) {
     });
 }
 
-
 /**
  * Fuseki Server Protocol - Add Dataset Service to Fuseki Server
- * @param datasetName Name of the Dataset
  * @param assemblerFilePath Path to the Dataset Assembler File
  */
 export function fusekiAddDataset(assemblerFilePath: string) {
