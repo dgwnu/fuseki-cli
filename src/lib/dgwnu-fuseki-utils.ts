@@ -47,6 +47,9 @@ export function fusekiServices(command: 'run' | 'start' | 'restart' | 'stop') {
     return runResult;
 }
 
+/**
+ * Fuseki Server Protocol - Ping
+ */
 export const fusekiPing = new Observable<string>(observer => {
     axios.get('/$/ping', { responseType: 'text' })
     .then(response => {
