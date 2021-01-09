@@ -74,7 +74,7 @@ export const fusekiServer = new Observable<any>(observer => {
         observer.next(response.data);
     })
     .catch(error => {
-        observer.error(error.response.data);
+        observer.error('Fuseki Server is Not Found!');
     })
     .finally(() => {
         observer.complete();
