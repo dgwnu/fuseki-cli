@@ -8,6 +8,7 @@
 import { createReadStream, readFileSync } from 'fs';
 import axios from 'axios';
 import { Observable, throwError } from 'rxjs';
+import * as FormData from 'form-data';
 
 /**
  * Local Library Imports
@@ -18,7 +19,7 @@ import { execOsShellCommand, systemConfigInfo } from './dgwnu-system-utils';
  * Fuseki Server Defaults
  */
 axios.defaults.baseURL = 'http://localhost:3030';
-const uploadApi = axios.create();
+const uploadApi = axios.create({ method: 'POST' });
 
 /**
  * Run Fuseki-server as a service (will nor restart after reboot)
@@ -105,16 +106,16 @@ export function fusekiDatasetConfig(datasetName?: string) {
 /**
  * Fuseki Server Protocol - Add Dataset Service to Fuseki Server
  * @param assemblerFilePath Path to Dataset Assembler File
+ * @see <https://masteringjs.io/tutorials/axios/form-data>
  */
 export function fusekiAddDataset(assemblerFilePath: string) {
-    uploadApi.defaults.headers.accept = 'text/turtle';
-    uploadApi.defaults.headers['content-type'] = 'text/turtle';
+    //uploadApi.defaults.headers['content-type'] = 'text/turtle';
+    const formData = new FormData();
+    formData.append('assembler', createReadStream(assemblerFilePath));
 
     return new Observable<any>(observer => {
         // PM get upload path from dataset config!
-        uploadApi.post('/$/datasets', { 
-            data: createReadStream(assemblerFilePath),
-        })
+        axios.post('/$/datasets', formData, { headers: formData.getHeaders() })
         .then(response => {
             observer.next(response.data);
         })
