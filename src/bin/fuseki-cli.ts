@@ -14,8 +14,8 @@ import { Observable, throwError } from 'rxjs';
 /**
  * CLI Library Modules
  */
-import { fusekiServices, fusekiPing, fusekiServer, fusekiDatasetConfig, 
-    fusekiAddDataset, fusekiRemoveDataset } from '../lib/dgwnu-fuseki-utils';
+import { services, ping, server, datasetConfig, 
+    addDataset, removeDataset } from '../lib/dgwnu-fuseki-utils';
 
 //
 // START CLI Script
@@ -36,27 +36,27 @@ console.log(`DGWNU - Fuseki CLI - ${command} ${parms}`);
 switch (command) {
 
     case 'run': {
-        displayResult(fusekiServices('run'));
+        displayResult(services('run'));
         break;
     }
 
     case 'start': {
-        displayResult(fusekiServices('start'));
+        displayResult(services('start'));
         break;
     }
 
     case 'restart': {
-        displayResult(fusekiServices('restart'));
+        displayResult(services('restart'));
         break;
     }
 
     case 'stop': {
-        displayResult(fusekiServices('stop'));
+        displayResult(services('stop'));
         break;
     }
 
     case 'ping': {
-        fusekiPing.subscribe(
+        ping.subscribe(
             up => displayResult(up),
             down => displayResult(down)
         );
@@ -64,7 +64,7 @@ switch (command) {
     }
 
     case 'server': {
-        fusekiServer.subscribe(
+        server.subscribe(
             data => displayResult(data),
             error => displayResult(error)
         );
@@ -72,7 +72,7 @@ switch (command) {
     }
 
     case 'datasets': {
-        fusekiDatasets(parms).subscribe(
+        datasets(parms).subscribe(
             data => displayResult(data),
             error => displayResult(error)
         );
@@ -101,21 +101,21 @@ switch (command) {
  * 
  * => 2nd parm: assembly file path of dataset to add | name of dataset to delete
  */
-function fusekiDatasets(parms: string[]) {
+function datasets(parms: string[]) {
     let observerable: Observable<any>;
 
     if (parms.length < 2) {
         // No or one parm supplied
         // Retrieve dataset(s) configuration information
-        observerable = fusekiDatasetConfig(parms[0])
+        observerable = datasetConfig(parms[0])
     } else if (parms.length == 2) {
         // two parms supplied
         // add or delete dataset
 
         if (['-a', '--add'].find(parm => parm == parms[0])) {
-            observerable = fusekiAddDataset(parms[1])
+            observerable = addDataset(parms[1])
         } else if (['-d', '-delete'].find(parm => parm == parms[0])) {
-            observerable = fusekiRemoveDataset(parms[1])
+            observerable = removeDataset(parms[1])
         } else {
             observerable = throwError(`Parms "${parms[0]} ${parms[1]}" are not correct specified!`);
         }
