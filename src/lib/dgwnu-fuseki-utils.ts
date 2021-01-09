@@ -107,13 +107,13 @@ export function fusekiDatasetConfig(datasetName?: string) {
  * @param assemblerFilePath Path to Dataset Assembler File
  */
 export function fusekiAddDataset(assemblerFilePath: string) {
+    uploadApi.defaults.headers['Accept'] = 'text/turtle';
     uploadApi.defaults.headers['Content-Type'] = 'text/turtle';
 
     return new Observable<any>(observer => {
         // PM get upload path from dataset config!
         uploadApi.post('/$/datasets', { 
-//            data: createReadStream(assemblerFilePath),
-            data: readFileSync(assemblerFilePath),
+            data: createReadStream(assemblerFilePath),
         })
         .then(response => {
             observer.next(response.data);
