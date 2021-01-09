@@ -93,24 +93,39 @@ export const fusekiServer = new Observable<any>(observer => {
  * => 2nd parm: assembly file path of dataset to add | name of dataset to delete
  */
 export function fusekiDatasets(parms: string[]) {
+    return new Observable<any>(observer => {
 
     if (parms.length < 2) {
+        // No or one parm supplied
+        // Retrieve dataset(s) configuration information
         const datasetPath = parms.length == 1 ? '/' + parms[0] : '';
 
-        return new Observable<any>(observer => {
-            axios.get(`/$/datasets${datasetPath}`)
-            .then(response => {
-                observer.next(response.data);
-            })
-            .catch(error => {
-                observer.error(error);
-            })
-            .finally(() => {
-                observer.complete();
-            });
+        axios.get(`/$/datasets${datasetPath}`)
+        .then(response => {
+            observer.next(response.data);
+        })
+        .catch(error => {
+            observer.error(error);
+        })
+        .finally(() => {
+            observer.complete();
         });
+        
+    } else if (parms.length == 2) {
+        // two parms supplied
+        // add or delete dataset
+
+        if (['-a', '--add'].find(parm => parm == parms[0])) {
+
+        } else if (['-d', '-delete'].find(parm => parm == parms[0])) {
+
+        }
+
+    } else {
+        observer.error('More than two parms supplied! ' + parms.join(' '));
     }
 
+    });
 }
 
 /**
@@ -118,10 +133,10 @@ export function fusekiDatasets(parms: string[]) {
  * @param datasetName Name of the Dataset
  * @param assemblerFilePath Path to the Dataset Assembler File
  */
-export function fusekiAddDataset(datasetName: string, assemblerFilePath: string) {
+export function fusekiAddDataset(assemblerFilePath: string) {
     return new Observable<any>(observer => {
         // PM get upload path from dataset config!
-        axios.post(`/$/datasets/${datasetName}/upload`, { data: createReadStream(assemblerFilePath) })
+        axios.post('/$/datasets', { data: createReadStream(assemblerFilePath) })
         .then(response => {
             observer.next(response.data);
         })
