@@ -116,7 +116,9 @@ export function fusekiDatasets(parms: string[]) {
         // add or delete dataset
 
         if (['-a', '--add'].find(parm => parm == parms[0])) {
-
+            fusekiAddDataset(parms[1]).subscribe(
+                
+            );
         } else if (['-d', '-delete'].find(parm => parm == parms[0])) {
 
         }
