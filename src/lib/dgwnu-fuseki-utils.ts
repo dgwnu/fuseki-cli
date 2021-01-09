@@ -81,45 +81,7 @@ export const fusekiServer = new Observable<any>(observer => {
 });
 
 /**
- * Fuseki Server Protocol - Dataset(s) Service Configuration
- * @param parms With process options
- * 
- * One paramater supplied: dataset name
- * 
- * Two parameters supplied: 
- * 
- * => 1st parm: -a | --add | -d | --delete
- * 
- * => 2nd parm: assembly file path of dataset to add | name of dataset to delete
- */
-export function fusekiDatasets(parms: string[]) {
-    let observerable: Observable<any>;
-
-    if (parms.length < 2) {
-        // No or one parm supplied
-        // Retrieve dataset(s) configuration information
-        observerable = fusekiDatasetConfig(parms[0])
-    } else if (parms.length == 2) {
-        // two parms supplied
-        // add or delete dataset
-
-        if (['-a', '--add'].find(parm => parm == parms[0])) {
-            observerable = fusekiAddDataset(parms[1])
-        } else if (['-d', '-delete'].find(parm => parm == parms[0])) {
-
-        } else {
-            observerable = throwError(`Parms "${parms[0]} ${parms[1]}" are not correct specified!`);
-        }
-
-    } else {
-        observerable = throwError(`To many Parms ${parms.length} !`);
-    }
-
-    return observerable;
-}
-
-/**
- * Fuseki Server Protocol - Dataset Service Configuration Information
+ * Fuseki Server Protocol - Dataset Service Information
  * @param datasetName Name of the Dataset (all Datasets if not applied)
  */
 export function fusekiDatasetConfig(datasetName?: string) {
@@ -142,7 +104,7 @@ export function fusekiDatasetConfig(datasetName?: string) {
 
 /**
  * Fuseki Server Protocol - Add Dataset Service to Fuseki Server
- * @param assemblerFilePath Path to the Dataset Assembler File
+ * @param assemblerFilePath Path to Dataset Assembler File
  */
 export function fusekiAddDataset(assemblerFilePath: string) {
     return new Observable<any>(observer => {
