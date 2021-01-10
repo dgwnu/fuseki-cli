@@ -115,7 +115,7 @@ export function addDataset(assemblerFilePath: string) {
         // PM get upload path from dataset config!
         http.post('/$/datasets', formData, { headers: formData.getHeaders() })
         .then(response => {
-            observer.next(responseStatusMsg(response));
+            observer.next(statusMsg(response));
         })
         .catch(error => {
             observer.error(error.response.data);
@@ -135,7 +135,7 @@ export function removeDataset(datasetName: string) {
         // PM get upload path from dataset config!
         http.delete(`/$/datasets/${datasetName}`)
         .then(response => {
-            observer.next(responseStatusMsg(response));
+            observer.next(statusMsg(response));
         })
         .catch(error => {
             observer.error(error.response.data);
@@ -159,7 +159,7 @@ export function refreshDataset(datasetName: string, triplesFilePath: string) {
         // PM get upload path from dataset config!
         http.put(`/${datasetName}/data`, formData, { headers: formData.getHeaders() })
         .then(response => {
-            observer.next(response.data);
+            observer.next(statusMsg(response));
         })
         .catch(error => {
             observer.error(error.response.data);
@@ -170,6 +170,6 @@ export function refreshDataset(datasetName: string, triplesFilePath: string) {
     });
 }
 
-function responseStatusMsg(response: AxiosResponse) {
+function statusMsg(response: AxiosResponse) {
     return `${response.status} - ${response.statusText}`;
 }
