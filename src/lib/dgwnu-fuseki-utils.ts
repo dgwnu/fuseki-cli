@@ -5,9 +5,9 @@
 /**
  * Node Package Imports
  */
-import { createReadStream, readFileSync } from 'fs';
+import { createReadStream } from 'fs';
 import axios from 'axios';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import * as FormData from 'form-data';
 
 /**
