@@ -15,7 +15,7 @@ import { Observable, throwError } from 'rxjs';
  * CLI Library Modules
  */
 import { services, ping, server, datasetConfig, 
-    addDataset, removeDataset } from '../lib/dgwnu-fuseki-utils';
+    addDataset, removeDataset, refreshData } from '../lib/dgwnu-fuseki-utils';
 
 //
 // START CLI Script
@@ -79,6 +79,14 @@ switch (command) {
         break;
     }
 
+    case 'refresh': {
+        refresh(parms).subscribe(
+            data => displayResult(data),
+            error => displayResult(error)
+        );
+        break;
+    }
+
     default: {
         console.log(`Missing or invalig param ${command}`);
         console.log('Param should be a: run, start, restart, stop');
@@ -122,6 +130,18 @@ function datasets(parms: string[]) {
 
     } else {
         observerable = throwError(`To many Parms ${parms.length} !`);
+    }
+
+    return observerable;
+}
+
+function refresh(parms: string[]) {
+    let observerable: Observable<any>;
+
+    if (parms.length == 2) {
+        observerable = refreshData(parms[0], parms[1]);
+    } else {
+        observerable = throwError('Excact 2 parms (datasetName and tripleFilePath) required for "refresh" command');
     }
 
     return observerable;

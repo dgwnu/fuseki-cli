@@ -151,7 +151,7 @@ export function removeDataset(datasetName: string) {
  * @param datasetName Name of dataset to refresh
  * @param triplesFilePath Path to triples file with refresh data
  */
-export function refreshDataset(datasetName: string, triplesFilePath: string) {
+export function refreshData(datasetName: string, triplesFilePath: string) {
     const formData = new FormData();
     formData.append('default', createReadStream(triplesFilePath));
 
