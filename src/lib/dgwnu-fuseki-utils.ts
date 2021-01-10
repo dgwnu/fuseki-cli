@@ -154,6 +154,8 @@ export function removeDataset(datasetName: string) {
 export function refreshData(datasetName: string, triplesFilePath: string) {
     const formData = new FormData();
     formData.append('default', createReadStream(triplesFilePath));
+    formData.append('content-type', 'text/turtle');
+    console.log(formData.getHeaders());
 
     return new Observable<any>(observer => {
         // PM get upload path from dataset config!
