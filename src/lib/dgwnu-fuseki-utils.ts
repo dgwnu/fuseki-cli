@@ -238,7 +238,7 @@ function graphStoreClient(method: 'GET' | 'PUT' | 'POST' | 'DELETE', datasetName
                     console.log('POST - Config');
                     client = fusekiClient(graphServicePath, config);
                 } else {
-                    client = throwError('Graph Store PUT-Service requires parm "uploadFilePath"');
+                    client = throwError('Graph Store POST-Service requires parm "uploadFilePath"');
                 }
                 break;
             }
@@ -311,6 +311,10 @@ function mapResponseMsg(response: any) {
     return responseMsg;
 }
 
+/**
+ * Map http (axios) error object
+ * @param error http (axios) error object
+ */
 function mapErrorMsg(error: any) {
     let errorStr = 'Error: ';
 
