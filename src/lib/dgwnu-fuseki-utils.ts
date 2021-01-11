@@ -156,7 +156,7 @@ export function removeDataset(datasetName: string) {
  * 
  * @see <https://www.w3.org/TR/sparql11-http-rdf-update/>
  */
-export function graphStore(method: 'get' | 'put' | 'post' | 'delete' ,datasetName: string, graph: string = 'default', uploadFilePath?: string ) {
+export function graphStore(method: 'get' | 'put' | 'post' | 'delete', datasetName: string, graph: string = 'default', uploadFilePath?: string ) {
     const formData = new FormData();
     formData.append('data', createReadStream(uploadFilePath));
     const dataHeaders = formData.getHeaders();
