@@ -159,7 +159,7 @@ export function graphStorePut(datasetName: string, triplesFilePath: string, grap
     const formData = new FormData();
     formData.append('data', createReadStream(triplesFilePath));
     const dataHeaders = formData.getHeaders();
-    const graphQueryParm = graph == 'default' ? graph : encodeURI('graph=' + graph);  
+    const graphQueryParm = graph == 'default' ? graph : encodeURI('?graph=' + graph);  
     const graphDataPath = `/${datasetName}/data?${graphQueryParm}`;
     console.log('graphDataPath: ', graphDataPath);
 
