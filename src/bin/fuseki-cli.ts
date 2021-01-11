@@ -15,7 +15,8 @@ import { Observable, throwError } from 'rxjs';
  * CLI Library Modules
  */
 import { services, ping, server, datasetConfig, 
-    addDataset, removeDataset, graphStore } from '../lib/dgwnu-fuseki-utils';
+    addDataset, removeDataset, graphStorePut, graphStoreGet, graphStorePost, 
+    graphStoreDelete } from '../lib/dgwnu-fuseki-utils';
 
 //
 // START CLI Script
@@ -79,16 +80,16 @@ switch (command) {
         break;
     }
 
-    case 'refresh': {
-        refreshData(parms).subscribe(
+    case 'put': {
+        putData(parms).subscribe(
             data => displayResult(data),
             error => displayResult(error)
         );
         break;
     }
 
-    case 'update': {
-        updateData(parms).subscribe(
+    case 'post': {
+        postData(parms).subscribe(
             data => displayResult(data),
             error => displayResult(error)
         );
@@ -143,7 +144,7 @@ function datasets(parms: string[]) {
     return observerable;
 }
 
-function refreshData(parms: string[]) {
+function putData(parms: string[]) {
     let observerable: Observable<any>;
 
     if (parms.length == 2) {
@@ -155,7 +156,7 @@ function refreshData(parms: string[]) {
     return observerable;
 }
 
-function updateData(parms: string[]) {
+function postData(parms: string[]) {
     let observerable: Observable<any>;
 
     if (parms.length == 2) {
