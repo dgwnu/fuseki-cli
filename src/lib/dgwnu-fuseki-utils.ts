@@ -146,7 +146,16 @@ export function removeDataset(datasetName: string) {
 }
 
 /**
- * GraphStore Management Operations
+ * Graph Store Get Operation
+ * @param datasetName 
+ * @param graph 
+ */
+export function graphStoreGet(datasetName: string, graph?: string) {
+    return graphStore('GET', datasetName, graph);
+}
+
+/**
+ * Graph Store Management Operations
  * 
  * @param method Graph Store Management Operation Method
  * @param datasetName Name of the Dataset to Manage
@@ -155,7 +164,7 @@ export function removeDataset(datasetName: string) {
  * 
  * @see <https://www.w3.org/TR/sparql11-http-rdf-update/>
  */
-export function graphStore(method: 'GET' | 'PUT' | 'POST' | 'DELETE', datasetName: string, graph: string = 'default', uploadFilePath?: string ) {
+function graphStore(method: 'GET' | 'PUT' | 'POST' | 'DELETE', datasetName: string, graph: string = 'default', uploadFilePath?: string ) {
     let observerable: Observable<any>;
         const graphQueryParm = graph == 'default' ? graph : encodeURI('?graph=' + graph);
         // PM uploadPath = dataUploadPath(datasetName)
