@@ -108,8 +108,7 @@ export function datasetConfig(datasetName?: string) {
  * @see <https://masteringjs.io/tutorials/axios/form-data>
  */
 export function addDataset(assemblerFilePath: string) {
-    const formData = new FormData();
-    formData.append('assembler', createReadStream(assemblerFilePath));
+    const formData = createFormData(assemblerFilePath);
 
     return new Observable<any>(observer => {
         // PM get upload path from dataset config!
@@ -159,6 +158,7 @@ export function graphStore(method: 'get' | 'put' | 'post' | 'delete', datasetNam
     const graphQueryParm = graph == 'default' ? graph : encodeURI('?graph=' + graph);
     // PM uploadPath = dataUploadPath(datasetName)
     const graphDataPath = `/${datasetName}/data?${graphQueryParm}`;
+    console.log('graphDataPath: ', graphDataPath);
 
     let observerable: Observable<any>;
     let config: AxiosRequestConfig = { method: method };
@@ -167,22 +167,28 @@ export function graphStore(method: 'get' | 'put' | 'post' | 'delete', datasetNam
 
         case 'get': {
             config.headers = { Accept: 'text/turtle; charset=utf-8' };
+            console.log('GET - Config');
             break;
         }
 
         case 'put': {
-
+            setUploadConfig(uploadFilePath, config);
+            console.log('PUT - Config');
             break;
         }
+
+        case 'post': {
+            setUploadConfig(uploadFilePath, config);
+            console.log('POST - Config');
+            break;
+        }
+
+        case 'delete': {
+            console.log('DELETE - Config');
+            break;
+        }
+
     }
-
-
-    const formData = new FormData();
-    formData.append('data', createReadStream(uploadFilePath));
-    const dataHeaders = formData.getHeaders();
-    console.log('graphDataPath: ', graphDataPath);
-
-    //const config: AxiosRequestConfig = { headers: dataHeaders, data: formData, method: method };
 
     observerable = new Observable<any>(observer => {
         axios(graphDataPath, config)
@@ -200,6 +206,16 @@ export function graphStore(method: 'get' | 'put' | 'post' | 'delete', datasetNam
     return observerable;
 }
 
+/**
+ * Update Axios Config for Form Data Read Stream for File Upload (put, post, ..)
+ * @param uploadFilePath 
+ */
+function setUploadConfig(uploadFilePath: string, config: AxiosRequestConfig) {
+    const formData = new FormData();
+    formData.append('uploadfile', createReadStream(uploadFilePath));
+    config.data = formData;
+    config.headers = formData.getHeaders();
+}
 
 /**
  * Get the Dataset GraphStore Upload Path
