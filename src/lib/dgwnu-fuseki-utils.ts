@@ -154,7 +154,7 @@ export function removeDataset(datasetName: string) {
  * 
  * @see <https://www.w3.org/TR/sparql11-http-rdf-update/>
  */
-export function graphStore(method: 'get' | 'put' | 'post' | 'delete', datasetName: string, graph: string = 'default', uploadFilePath?: string ) {
+export function graphStore(method: 'GET' | 'PUT' | 'POST' | 'DELETE', datasetName: string, graph: string = 'default', uploadFilePath?: string ) {
     const graphQueryParm = graph == 'default' ? graph : encodeURI('?graph=' + graph);
     // PM uploadPath = dataUploadPath(datasetName)
     const graphDataPath = `/${datasetName}/data?${graphQueryParm}`;
@@ -165,25 +165,25 @@ export function graphStore(method: 'get' | 'put' | 'post' | 'delete', datasetNam
     
     switch (method) {
 
-        case 'get': {
+        case 'GET': {
             config.headers = { Accept: 'text/turtle; charset=utf-8' };
             console.log('GET - Config');
             break;
         }
 
-        case 'put': {
+        case 'PUT': {
             setUploadConfig(uploadFilePath, config);
             console.log('PUT - Config');
             break;
         }
 
-        case 'post': {
+        case 'POST': {
             setUploadConfig(uploadFilePath, config);
             console.log('POST - Config');
             break;
         }
 
-        case 'delete': {
+        case 'DELETE': {
             console.log('DELETE - Config');
             break;
         }
