@@ -151,7 +151,7 @@ export function removeDataset(datasetName: string) {
  * @param datasetName Name of dataset to refresh
  * @param triplesFilePath Path to triples file with refresh data
  */
-export function graphStore(datasetName: string, method: 'put' | 'post' | 'delete', graph: string ='default', triplesFilePath?: string) {
+export function graphStore(datasetName: string, graph: string ='default', triplesFilePath?: string) {
     const formData = new FormData();
     formData.append('data', createReadStream(triplesFilePath));
     const dataHeaders = formData.getHeaders();
