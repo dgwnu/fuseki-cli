@@ -7,7 +7,7 @@
  */
 import { createReadStream } from 'fs';
 import axios, { AxiosRequestConfig } from 'axios';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import * as FormData from 'form-data';
 
 /**
@@ -156,53 +156,53 @@ export function removeDataset(datasetName: string) {
  * @see <https://www.w3.org/TR/sparql11-http-rdf-update/>
  */
 export function graphStore(method: 'GET' | 'PUT' | 'POST' | 'DELETE', datasetName: string, graph: string = 'default', uploadFilePath?: string ) {
-    const graphQueryParm = graph == 'default' ? graph : encodeURI('?graph=' + graph);
-    // PM uploadPath = dataUploadPath(datasetName)
-    const graphDataPath = `/${datasetName}/data?${graphQueryParm}`;
-    console.log('graphDataPath: ', graphDataPath);
-
     let observerable: Observable<any>;
-    let config: AxiosRequestConfig = { method: method };
-    
-    switch (method) {
+        const graphQueryParm = graph == 'default' ? graph : encodeURI('?graph=' + graph);
+        // PM uploadPath = dataUploadPath(datasetName)
+        const graphDataPath = `/${datasetName}/data?${graphQueryParm}`;
+        console.log('graphDataPath: ', graphDataPath);
 
-        case 'GET': {
-            config.headers = { Accept: 'text/turtle; charset=utf-8' };
-            console.log('GET - Config');
-            break;
+        let config: AxiosRequestConfig = { method: method };
+        
+        switch (method) {
+
+            case 'GET': {
+                config.headers = { Accept: 'text/turtle; charset=utf-8' };
+                console.log('GET - Config');
+                break;
+            }
+
+            case 'PUT': {
+                setUploadConfig(uploadFilePath, config);
+                console.log('PUT - Config');
+                break;
+            }
+
+            case 'POST': {
+                setUploadConfig(uploadFilePath, config);
+                console.log('POST - Config');
+                break;
+            }
+
+            case 'DELETE': {
+                console.log('DELETE - Config');
+                break;
+            }
+
         }
 
-        case 'PUT': {
-            setUploadConfig(uploadFilePath, config);
-            console.log('PUT - Config');
-            break;
-        }
-
-        case 'POST': {
-            setUploadConfig(uploadFilePath, config);
-            console.log('POST - Config');
-            break;
-        }
-
-        case 'DELETE': {
-            console.log('DELETE - Config');
-            break;
-        }
-
-    }
-
-    observerable = new Observable<any>(observer => {
-        axios(graphDataPath, config)
-        .then(response => {
-            observer.next(mapResponseMsg(response));
-        })
-        .catch(error => {
-            observer.error(error.response.data);
-        })
-        .finally(() => {
-            observer.complete();
+        observerable = new Observable<any>(observer => {
+            axios(graphDataPath, config)
+            .then(response => {
+                observer.next(mapResponseMsg(response));
+            })
+            .catch(error => {
+                observer.error(error.response.data);
+            })
+            .finally(() => {
+                observer.complete();
+            });
         });
-    });
 
     return observerable;
 }
