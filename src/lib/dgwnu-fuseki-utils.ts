@@ -6,7 +6,7 @@
  * Node Package Imports
  */
 import { createReadStream } from 'fs';
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { Observable } from 'rxjs';
 import * as FormData from 'form-data';
 
@@ -159,12 +159,15 @@ export function graphStorePut(datasetName: string, triplesFilePath: string, grap
     const formData = new FormData();
     formData.append('data', createReadStream(triplesFilePath));
     const dataHeaders = formData.getHeaders();
-    const dataPath = `/${datasetName}/data?${graph}`;
-    console.log('Data Upload Path', dataPath);
+    const graphQueryParm = graph == 'default' ? graph : encodeURI('graph=' + graph);  
+    const graphDataPath = `/${datasetName}/data?${graphQueryParm}`;
+    console.log('graphDataPath: ', graphDataPath);
+
+    const config: AxiosRequestConfig = { headers: dataHeaders, data: formData, method: 'put' };
 
     return new Observable<any>(observer => {
         // PM get upload path from dataset config!
-        axios.put(dataPath, formData, { headers: dataHeaders })
+        axios(graphDataPath, config)
         .then(response => {
             observer.next(mapResponseMsg(response));
         })
