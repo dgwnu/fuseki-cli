@@ -147,17 +147,18 @@ export function removeDataset(datasetName: string) {
 }
 
 /**
- * Refresh Dataset Contents with triples file
+ * GraphStore Management Operations
  * 
- * @param datasetName Name of dataset to refresh
- * @param triplesFilePath Path to triples file with refresh data
+ * @param method Graph Store Management Operation Method
+ * @param datasetName Name of the Dataset to Manage
  * @param graph Other then default graph IRI (http://example.graph.sample)
+ * @param uploadFilePath Path to triples file data to upload (post and put methods)
  * 
- * @see <https://www.w3.org/TR/sparql11-http-rdf-update/#http-put>
+ * @see <https://www.w3.org/TR/sparql11-http-rdf-update/>
  */
-export function graphStore(method: 'get' | 'put' | 'post' | 'delete' ,datasetName: string, triplesFilePath: string, graph: string = 'default' ) {
+export function graphStore(method: 'get' | 'put' | 'post' | 'delete' ,datasetName: string, graph: string = 'default', uploadFilePath?: string ) {
     const formData = new FormData();
-    formData.append('data', createReadStream(triplesFilePath));
+    formData.append('data', createReadStream(uploadFilePath));
     const dataHeaders = formData.getHeaders();
     const graphQueryParm = graph == 'default' ? graph : encodeURI('?graph=' + graph);  
     const graphDataPath = `/${datasetName}/data?${graphQueryParm}`;
