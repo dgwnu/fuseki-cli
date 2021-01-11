@@ -158,7 +158,9 @@ export function refreshData(datasetName: string, triplesFilePath: string) {
     
     return new Observable<any>(observer => {
         // PM get upload path from dataset config!
-        axios.put(`/${datasetName}/data`, formData, { headers: dataHeaders })
+        const dataPath = `/${datasetName}/data`;
+        console.log('dataPath', dataPath);
+        axios.put(dataPath, formData, { headers: dataHeaders })
         .then(response => {
             observer.next(statusMsg(response));
         })
