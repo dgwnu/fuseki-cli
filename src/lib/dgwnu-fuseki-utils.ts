@@ -108,11 +108,12 @@ export function datasetConfig(datasetName?: string) {
  * @see <https://masteringjs.io/tutorials/axios/form-data>
  */
 export function addDataset(assemblerFilePath: string) {
-    const formData = createFormData(assemblerFilePath);
-
+    let config: AxiosRequestConfig = { method: 'POST' };
+    setUploadConfig(assemblerFilePath, config);
+    
     return new Observable<any>(observer => {
         // PM get upload path from dataset config!
-        axios.post('/$/datasets', formData, { headers: formData.getHeaders() })
+        axios('/$/datasets', config )
         .then(response => {
             observer.next(mapResponseMsg(response));
         })

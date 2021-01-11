@@ -80,7 +80,15 @@ switch (command) {
     }
 
     case 'refresh': {
-        refresh(parms).subscribe(
+        refreshData(parms).subscribe(
+            data => displayResult(data),
+            error => displayResult(error)
+        );
+        break;
+    }
+
+    case 'update': {
+        updateData(parms).subscribe(
             data => displayResult(data),
             error => displayResult(error)
         );
@@ -135,13 +143,25 @@ function datasets(parms: string[]) {
     return observerable;
 }
 
-function refresh(parms: string[]) {
+function refreshData(parms: string[]) {
     let observerable: Observable<any>;
 
     if (parms.length == 2) {
-        observerable = graphStore('put', parms[0], undefined, parms[1]);
+        observerable = graphStore('PUT', parms[0], undefined, parms[1]);
     } else {
         observerable = throwError('Excact 2 parms (datasetName and tripleFilePath) required for "refresh" command');
+    }
+
+    return observerable;
+}
+
+function updateData(parms: string[]) {
+    let observerable: Observable<any>;
+
+    if (parms.length == 2) {
+        observerable = graphStore('POST', parms[0], undefined, parms[1]);
+    } else {
+        observerable = throwError('Excact 2 parms (datasetName and tripleFilePath) required for "update" command');
     }
 
     return observerable;
