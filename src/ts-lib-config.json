@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
       "outDir": "../dist/lib",
-      "target": "es2015",
-      "module": "commonjs",
+      "target": "es5",
+      "module": "esnext",
       "lib": ["es2015"],
       "sourceMap": true,
       "strict": true,
