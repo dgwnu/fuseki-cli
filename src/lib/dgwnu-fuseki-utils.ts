@@ -73,7 +73,7 @@ export const server = new Observable<any>(observer => {
         observer.next(response.data);
     })
     .catch(error => {
-        observer.error('Fuseki Server is Not Found!');
+        observer.error(mapErrorMsg(error));
     })
     .finally(() => {
         observer.complete();
@@ -137,7 +137,7 @@ export function removeDataset(datasetName: string) {
             observer.next(mapResponseMsg(response));
         })
         .catch(error => {
-            observer.error(error.response.data);
+            observer.error(mapErrorMsg(error));
         })
         .finally(() => {
             observer.complete();
