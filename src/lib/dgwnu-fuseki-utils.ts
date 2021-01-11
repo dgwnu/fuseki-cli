@@ -93,7 +93,7 @@ export function datasetConfig(datasetName?: string) {
             observer.next(response.data);
         })
         .catch(error => {
-            observer.error(error.response.data);
+            observer.error(mapErrorMsg(error));
         })
         .finally(() => {
             observer.complete();
@@ -115,10 +115,10 @@ export function addDataset(assemblerFilePath: string) {
         // PM get upload path from dataset config!
         axios.post('/$/datasets', formData, { headers: formData.getHeaders() })
         .then(response => {
-            observer.next(statusMsg(response));
+            observer.next(mapResponseMsg(response));
         })
         .catch(error => {
-            observer.error(error.response.data);
+            observer.error(mapErrorMsg(error));
         })
         .finally(() => {
             observer.complete();
@@ -162,7 +162,7 @@ export function refreshData(datasetName: string, triplesFilePath: string) {
         console.log('dataPath', dataPath);
         axios.put(dataPath, formData, { headers: dataHeaders })
         .then(response => {
-            observer.next(statusMsg(response));
+            observer.next(mapResponse(response));
         })
         .catch(error => {
             observer.error(error.response.data);
@@ -173,6 +173,34 @@ export function refreshData(datasetName: string, triplesFilePath: string) {
     });
 }
 
-function statusMsg(response: { status: number, statusText: string }) {
-    return `${response.status} - ${response.statusText}`;
+function dataUploadPath() {
+
+}
+
+/**
+ * Map http (axios) response object
+ * @param response http (axios) response object
+ */
+function mapResponseMsg(response: any) {
+    let responseMsg = 'Response : ';
+    
+    if (response.status) {
+        responseMsg += response.status + ' - ' + response.statusText + '\n';
+    } else {
+        responseMsg += 'Unknown!';
+    }
+        
+    return responseMsg;
+}
+
+function mapErrorMsg(error: any) {
+    let errorStr = 'Error: ';
+
+    if (error.response) {
+        errorStr += mapResponseMsg(error.response); 
+    } else {
+        errorStr += 'Unknown!';
+    }
+
+    return errorStr;
 }
