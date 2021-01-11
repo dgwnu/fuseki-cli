@@ -15,7 +15,7 @@ import { Observable, throwError } from 'rxjs';
  * CLI Library Modules
  */
 import { services, ping, server, datasetConfig, 
-    addDataset, removeDataset, refreshData } from '../lib/dgwnu-fuseki-utils';
+    addDataset, removeDataset, graphStore } from '../lib/dgwnu-fuseki-utils';
 
 //
 // START CLI Script
@@ -139,7 +139,7 @@ function refresh(parms: string[]) {
     let observerable: Observable<any>;
 
     if (parms.length == 2) {
-        observerable = refreshData(parms[0], parms[1]);
+        observerable = graphStore('put', parms[0], undefined, parms[1]);
     } else {
         observerable = throwError('Excact 2 parms (datasetName and tripleFilePath) required for "refresh" command');
     }
