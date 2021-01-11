@@ -132,7 +132,6 @@ export function addDataset(assemblerFilePath: string) {
  */
 export function removeDataset(datasetName: string) {
     return new Observable<any>(observer => {
-        // PM get upload path from dataset config!
         axios.delete(`/$/datasets/${datasetName}`)
         .then(response => {
             observer.next(mapResponseMsg(response));
@@ -157,19 +156,35 @@ export function removeDataset(datasetName: string) {
  * @see <https://www.w3.org/TR/sparql11-http-rdf-update/>
  */
 export function graphStore(method: 'get' | 'put' | 'post' | 'delete', datasetName: string, graph: string = 'default', uploadFilePath?: string ) {
+    const graphQueryParm = graph == 'default' ? graph : encodeURI('?graph=' + graph);
+    // PM uploadPath = dataUploadPath(datasetName)
+    const graphDataPath = `/${datasetName}/data?${graphQueryParm}`;
+
     let observerable: Observable<any>;
+    let config: AxiosRequestConfig = { method: method };
     
+    switch (method) {
+
+        case 'get': {
+            config.headers = { Accept: 'text/turtle; charset=utf-8' };
+            break;
+        }
+
+        case 'put': {
+
+            break;
+        }
+    }
+
+
     const formData = new FormData();
     formData.append('data', createReadStream(uploadFilePath));
     const dataHeaders = formData.getHeaders();
-    const graphQueryParm = graph == 'default' ? graph : encodeURI('?graph=' + graph);  
-    const graphDataPath = `/${datasetName}/data?${graphQueryParm}`;
     console.log('graphDataPath: ', graphDataPath);
 
-    const config: AxiosRequestConfig = { headers: dataHeaders, data: formData, method: method };
+    //const config: AxiosRequestConfig = { headers: dataHeaders, data: formData, method: method };
 
     observerable = new Observable<any>(observer => {
-        // PM get upload path from dataset config!
         axios(graphDataPath, config)
         .then(response => {
             observer.next(mapResponseMsg(response));
@@ -185,7 +200,11 @@ export function graphStore(method: 'get' | 'put' | 'post' | 'delete', datasetNam
     return observerable;
 }
 
-function dataUploadPath() {
+
+/**
+ * Get the Dataset GraphStore Upload Path
+ */
+function dataUploadPath(datasetName: string) {
 
 }
 
