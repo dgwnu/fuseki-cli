@@ -6,7 +6,7 @@
  * Node Package Imports
  */
 import { createReadStream } from 'fs';
-import { default as http, AxiosResponse } from 'axios';
+import axios from 'axios';
 import { Observable } from 'rxjs';
 import * as FormData from 'form-data';
 
@@ -18,7 +18,7 @@ import { execOsShellCommand, systemConfigInfo } from './dgwnu-system-utils';
 /**
  * Fuseki Server Defaults
  */
-http.defaults.baseURL = 'http://localhost:3030';
+axios.defaults.baseURL = 'http://localhost:3030';
 
 /**
  * Run Fuseki-server as a service (will nor restart after reboot)
@@ -52,7 +52,7 @@ export function services(command: 'run' | 'start' | 'restart' | 'stop') {
  * Fuseki Server Protocol - Ping
  */
 export const ping = new Observable<string>(observer => {
-    http.get('/$/ping', { responseType: 'text' })
+    axios.get('/$/ping', { responseType: 'text' })
     .then(response => {
         observer.next('Fuseki Server is Up: ' + response.data);
     })
@@ -68,7 +68,7 @@ export const ping = new Observable<string>(observer => {
  * Fuseki Server Protocol - Server Information
  */
 export const server = new Observable<any>(observer => {
-    http.get('/$/server')
+    axios.get('/$/server')
     .then(response => {
         observer.next(response.data);
     })
@@ -88,7 +88,7 @@ export function datasetConfig(datasetName?: string) {
     return new Observable<any>(observer => {
         const datasetPath = datasetName ? '/' + datasetName : '';
 
-        http.get(`/$/datasets${datasetPath}`)
+        axios.get(`/$/datasets${datasetPath}`)
         .then(response => {
             observer.next(response.data);
         })
@@ -113,7 +113,7 @@ export function addDataset(assemblerFilePath: string) {
 
     return new Observable<any>(observer => {
         // PM get upload path from dataset config!
-        http.post('/$/datasets', formData, { headers: formData.getHeaders() })
+        axios.post('/$/datasets', formData, { headers: formData.getHeaders() })
         .then(response => {
             observer.next(statusMsg(response));
         })
@@ -133,7 +133,7 @@ export function addDataset(assemblerFilePath: string) {
 export function removeDataset(datasetName: string) {
     return new Observable<any>(observer => {
         // PM get upload path from dataset config!
-        http.delete(`/$/datasets/${datasetName}`)
+        axios.delete(`/$/datasets/${datasetName}`)
         .then(response => {
             observer.next(statusMsg(response));
         })
@@ -158,7 +158,7 @@ export function refreshData(datasetName: string, triplesFilePath: string) {
     
     return new Observable<any>(observer => {
         // PM get upload path from dataset config!
-        http.put(`/${datasetName}/data`, formData, { headers: dataHeaders })
+        axios.put(`/${datasetName}/data`, formData, { headers: dataHeaders })
         .then(response => {
             observer.next(statusMsg(response));
         })
@@ -171,6 +171,6 @@ export function refreshData(datasetName: string, triplesFilePath: string) {
     });
 }
 
-function statusMsg(response: AxiosResponse) {
+function statusMsg(response: { status: number, statusText: string }) {
     return `${response.status} - ${response.statusText}`;
 }
