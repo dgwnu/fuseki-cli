@@ -146,12 +146,51 @@ export function removeDataset(datasetName: string) {
 }
 
 /**
- * Graph Store Get Operation
- * @param datasetName 
- * @param graph 
+ * Graph Store GET Operation
+ * 
+ * @param datasetName Name of the Dataset to retrieve all data
+ * @param graph Other then default graph IRI (http://example.graph.sample)
+ * 
+ * @see <https://www.w3.org/TR/sparql11-http-rdf-update/#http-get>
  */
 export function graphStoreGet(datasetName: string, graph?: string) {
     return graphStore('GET', datasetName, graph);
+}
+
+/**
+ * Graph Store PUT Operation
+ * 
+ * @param datasetName Name of the Dataset to refresh all data
+ * @param graph Other then default graph IRI (http://example.graph.sample)
+ * 
+ * @see <https://www.w3.org/TR/sparql11-http-rdf-update/#http-put>
+ */
+export function graphStorePut(datasetName: string, uploadFilePath: string, graph?: string, ) {
+    return graphStore('PUT', datasetName, graph, uploadFilePath);
+}
+
+/**
+ * Graph Store POST Operation
+ * 
+ * @param datasetName Name of the Dataset to update all data
+ * @param graph Other then default graph IRI (http://example.graph.sample)
+ * 
+ * @see <https://www.w3.org/TR/sparql11-http-rdf-update/#http-post>
+ */
+export function graphStorePost(datasetName: string, uploadFilePath: string, graph?: string, ) {
+    return graphStore('POST', datasetName, graph, uploadFilePath);
+}
+
+/**
+ * Graph Store DELETE Operation
+ * 
+ * @param datasetName Name of the Dataset to delete all data
+ * @param graph Other then default graph IRI (http://example.graph.sample)
+ * 
+ * @see <https://www.w3.org/TR/sparql11-http-rdf-update/#http-get>
+ */
+export function graphStoreDelete(datasetName: string, graph?: string) {
+    return graphStore('DELETE', datasetName, graph);
 }
 
 /**
@@ -164,7 +203,7 @@ export function graphStoreGet(datasetName: string, graph?: string) {
  * 
  * @see <https://www.w3.org/TR/sparql11-http-rdf-update/>
  */
-function graphStore(method: 'GET' | 'PUT' | 'POST' | 'DELETE', datasetName: string, graph: string = 'default', uploadFilePath?: string ) {
+function graphStore(method: 'GET' | 'PUT' | 'POST' | 'DELETE', datasetName: string, graph: string = 'default', uploadFilePath?: string) {
     let observerable: Observable<any>;
         const graphQueryParm = graph == 'default' ? graph : encodeURI('?graph=' + graph);
         // PM uploadPath = dataUploadPath(datasetName)
