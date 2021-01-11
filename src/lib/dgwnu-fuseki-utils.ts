@@ -7,7 +7,7 @@
  */
 import { createReadStream } from 'fs';
 import axios, { AxiosRequestConfig } from 'axios';
-import { Observable } from 'rxjs';
+import { observable, Observable } from 'rxjs';
 import * as FormData from 'form-data';
 
 /**
@@ -221,8 +221,12 @@ function graphStore(method: 'GET' | 'PUT' | 'POST' | 'DELETE', datasetName: stri
             }
 
             case 'PUT': {
-                setUploadConfig(uploadFilePath, config);
-                console.log('PUT - Config');
+                if (uploadFilePath) {
+                    setUploadConfig(uploadFilePath, config);
+                    console.log('PUT - Config');
+                    observable = 
+
+                }
                 break;
             }
 
