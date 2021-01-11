@@ -7,7 +7,7 @@
  */
 import { createReadStream } from 'fs';
 import axios, { AxiosRequestConfig } from 'axios';
-import { observable, Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import * as FormData from 'form-data';
 
 /**
@@ -154,7 +154,7 @@ export function removeDataset(datasetName: string) {
  * @see <https://www.w3.org/TR/sparql11-http-rdf-update/#http-get>
  */
 export function graphStoreGet(datasetName: string, graph?: string) {
-    return graphStore('GET', datasetName, graph);
+    return graphStoreClient('GET', datasetName, graph);
 }
 
 /**
@@ -166,7 +166,7 @@ export function graphStoreGet(datasetName: string, graph?: string) {
  * @see <https://www.w3.org/TR/sparql11-http-rdf-update/#http-put>
  */
 export function graphStorePut(datasetName: string, uploadFilePath: string, graph?: string, ) {
-    return graphStore('PUT', datasetName, graph, uploadFilePath);
+    return graphStoreClient('PUT', datasetName, graph, uploadFilePath);
 }
 
 /**
@@ -178,7 +178,7 @@ export function graphStorePut(datasetName: string, uploadFilePath: string, graph
  * @see <https://www.w3.org/TR/sparql11-http-rdf-update/#http-post>
  */
 export function graphStorePost(datasetName: string, uploadFilePath: string, graph?: string, ) {
-    return graphStore('POST', datasetName, graph, uploadFilePath);
+    return graphStoreClient('POST', datasetName, graph, uploadFilePath);
 }
 
 /**
@@ -190,7 +190,7 @@ export function graphStorePost(datasetName: string, uploadFilePath: string, grap
  * @see <https://www.w3.org/TR/sparql11-http-rdf-update/#http-delete>
  */
 export function graphStoreDelete(datasetName: string, graph?: string) {
-    return graphStore('DELETE', datasetName, graph);
+    return graphStoreClient('DELETE', datasetName, graph);
 }
 
 /**
@@ -203,12 +203,12 @@ export function graphStoreDelete(datasetName: string, graph?: string) {
  * 
  * @see <https://www.w3.org/TR/sparql11-http-rdf-update/>
  */
-function graphStore(method: 'GET' | 'PUT' | 'POST' | 'DELETE', datasetName: string, graph: string = 'default', uploadFilePath?: string) {
-    let observerable: Observable<any>;
+function graphStoreClient(method: 'GET' | 'PUT' | 'POST' | 'DELETE', datasetName: string, graph: string = 'default', uploadFilePath?: string) {
+    let client: Observable<any>;
     const graphQueryParm = graph == 'default' ? graph : encodeURI('?graph=' + graph);
     // PM uploadPath = dataUploadPath(datasetName)
-    const graphDataPath = `/${datasetName}/data?${graphQueryParm}`;
-    console.log('graphDataPath: ', graphDataPath);
+    const graphServicePath = `/${datasetName}/data?${graphQueryParm}`;
+    console.log('graphServicePath: ', graphServicePath);
 
     let config: AxiosRequestConfig = { method: method };
         
@@ -217,6 +217,7 @@ function graphStore(method: 'GET' | 'PUT' | 'POST' | 'DELETE', datasetName: stri
             case 'GET': {
                 config.headers = { Accept: 'text/turtle; charset=utf-8' };
                 console.log('GET - Config');
+                client = fusekiClient(graphServicePath, config);
                 break;
             }
 
@@ -224,39 +225,33 @@ function graphStore(method: 'GET' | 'PUT' | 'POST' | 'DELETE', datasetName: stri
                 if (uploadFilePath) {
                     setUploadConfig(uploadFilePath, config);
                     console.log('PUT - Config');
-                    observable = 
-
+                    client = fusekiClient(graphServicePath, config);
+                } else {
+                    client = throwError('Graph Store PUT-Service requires parm "uploadFilePath"');
                 }
                 break;
             }
 
             case 'POST': {
-                setUploadConfig(uploadFilePath, config);
-                console.log('POST - Config');
+                if (uploadFilePath) {
+                    setUploadConfig(uploadFilePath, config);
+                    console.log('POST - Config');
+                    client = fusekiClient(graphServicePath, config);
+                } else {
+                    client = throwError('Graph Store PUT-Service requires parm "uploadFilePath"');
+                }
                 break;
             }
 
             case 'DELETE': {
                 console.log('DELETE - Config');
+                client = fusekiClient(graphServicePath, config);
                 break;
             }
 
     }
 
-    observerable = new Observable<any>(observer => {
-            axios(graphDataPath, config)
-            .then(response => {
-                observer.next(mapResponseMsg(response));
-            })
-            .catch(error => {
-                observer.error(error.response.data);
-            })
-            .finally(() => {
-                observer.complete();
-            });
-    });
-
-    return observerable;
+    return client;
 }
 
 /**
@@ -274,6 +269,29 @@ function setUploadConfig(uploadFilePath: string, config: AxiosRequestConfig) {
  * Get the Dataset GraphStore Upload Path
  */
 function dataUploadPath(datasetName: string) {
+
+}
+
+/**
+ * Observerable for Fuseki Client
+ * 
+ * @param servicePath Path to the service to Request
+ * @param config Request Configuration
+ */
+function fusekiClient(servicePath: string, config: AxiosRequestConfig) {
+
+    return new Observable<any>(observer => {
+        axios(servicePath, config)
+        .then(response => {
+            observer.next(mapResponseMsg(response));
+        })
+        .catch(error => {
+            observer.error(mapErrorMsg(error));
+        })
+        .finally(() => {
+            observer.complete();
+        });
+    });
 
 }
 
