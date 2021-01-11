@@ -135,7 +135,7 @@ export function removeDataset(datasetName: string) {
         // PM get upload path from dataset config!
         axios.delete(`/$/datasets/${datasetName}`)
         .then(response => {
-            observer.next(statusMsg(response));
+            observer.next(mapResponseMsg(response));
         })
         .catch(error => {
             observer.error(error.response.data);
@@ -151,18 +151,18 @@ export function removeDataset(datasetName: string) {
  * @param datasetName Name of dataset to refresh
  * @param triplesFilePath Path to triples file with refresh data
  */
-export function refreshData(datasetName: string, triplesFilePath: string) {
+export function graphStore(datasetName: string, method: 'put' | 'post' | 'delete', graph: string ='default', triplesFilePath?: string) {
     const formData = new FormData();
     formData.append('data', createReadStream(triplesFilePath));
     const dataHeaders = formData.getHeaders();
-    
+    const dataPath = `/${datasetName}/data?${graph}`;
+    console.log('Data Upload Path', dataPath);
+
     return new Observable<any>(observer => {
         // PM get upload path from dataset config!
-        const dataPath = `/${datasetName}/data`;
-        console.log('dataPath', dataPath);
         axios.put(dataPath, formData, { headers: dataHeaders })
         .then(response => {
-            observer.next(mapResponse(response));
+            observer.next(mapResponseMsg(response));
         })
         .catch(error => {
             observer.error(error.response.data);
