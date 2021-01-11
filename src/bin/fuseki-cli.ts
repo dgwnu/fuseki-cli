@@ -148,7 +148,7 @@ function putData(parms: string[]) {
     let observerable: Observable<any>;
 
     if (parms.length == 2) {
-        observerable = graphStore('PUT', parms[0], undefined, parms[1]);
+        observerable = graphStorePut(parms[0], parms[1]);
     } else {
         observerable = throwError('Excact 2 parms (datasetName and tripleFilePath) required for "refresh" command');
     }
@@ -160,7 +160,7 @@ function postData(parms: string[]) {
     let observerable: Observable<any>;
 
     if (parms.length == 2) {
-        observerable = graphStore('POST', parms[0], undefined, parms[1]);
+        observerable = graphStorePost(parms[0], parms[1]);
     } else {
         observerable = throwError('Excact 2 parms (datasetName and tripleFilePath) required for "update" command');
     }
