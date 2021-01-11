@@ -57,7 +57,7 @@ export const ping = new Observable<string>(observer => {
         observer.next('Fuseki Server is Up: ' + response.data);
     })
     .catch(error => {
-        observer.error('Fuseki Server is Down!');
+        observer.error(mapErrorMsg(error));
     })
     .finally(() => {
         observer.complete();
