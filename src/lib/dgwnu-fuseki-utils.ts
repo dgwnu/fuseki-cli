@@ -163,7 +163,7 @@ export function graphStore(method: 'get' | 'put' | 'post' | 'delete' ,datasetNam
     const graphDataPath = `/${datasetName}/data?${graphQueryParm}`;
     console.log('graphDataPath: ', graphDataPath);
 
-    const config: AxiosRequestConfig = { headers: dataHeaders, data: formData, method: 'put' };
+    const config: AxiosRequestConfig = { headers: dataHeaders, data: formData, method: method };
 
     return new Observable<any>(observer => {
         // PM get upload path from dataset config!
