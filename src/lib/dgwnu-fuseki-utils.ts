@@ -187,7 +187,7 @@ export function graphStorePost(datasetName: string, uploadFilePath: string, grap
  * @param datasetName Name of the Dataset to delete all data
  * @param graph Other then default graph IRI (http://example.graph.sample)
  * 
- * @see <https://www.w3.org/TR/sparql11-http-rdf-update/#http-get>
+ * @see <https://www.w3.org/TR/sparql11-http-rdf-update/#http-delete>
  */
 export function graphStoreDelete(datasetName: string, graph?: string) {
     return graphStore('DELETE', datasetName, graph);
@@ -205,14 +205,14 @@ export function graphStoreDelete(datasetName: string, graph?: string) {
  */
 function graphStore(method: 'GET' | 'PUT' | 'POST' | 'DELETE', datasetName: string, graph: string = 'default', uploadFilePath?: string) {
     let observerable: Observable<any>;
-        const graphQueryParm = graph == 'default' ? graph : encodeURI('?graph=' + graph);
-        // PM uploadPath = dataUploadPath(datasetName)
-        const graphDataPath = `/${datasetName}/data?${graphQueryParm}`;
-        console.log('graphDataPath: ', graphDataPath);
+    const graphQueryParm = graph == 'default' ? graph : encodeURI('?graph=' + graph);
+    // PM uploadPath = dataUploadPath(datasetName)
+    const graphDataPath = `/${datasetName}/data?${graphQueryParm}`;
+    console.log('graphDataPath: ', graphDataPath);
 
-        let config: AxiosRequestConfig = { method: method };
+    let config: AxiosRequestConfig = { method: method };
         
-        switch (method) {
+    switch (method) {
 
             case 'GET': {
                 config.headers = { Accept: 'text/turtle; charset=utf-8' };
@@ -237,9 +237,9 @@ function graphStore(method: 'GET' | 'PUT' | 'POST' | 'DELETE', datasetName: stri
                 break;
             }
 
-        }
+    }
 
-        observerable = new Observable<any>(observer => {
+    observerable = new Observable<any>(observer => {
             axios(graphDataPath, config)
             .then(response => {
                 observer.next(mapResponseMsg(response));
@@ -250,7 +250,7 @@ function graphStore(method: 'GET' | 'PUT' | 'POST' | 'DELETE', datasetName: stri
             .finally(() => {
                 observer.complete();
             });
-        });
+    });
 
     return observerable;
 }
