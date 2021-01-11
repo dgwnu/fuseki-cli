@@ -153,7 +153,7 @@ export function removeDataset(datasetName: string) {
  * 
  * @see <https://www.w3.org/TR/sparql11-http-rdf-update/#http-get>
  */
-export function graphStoreGet(datasetName: string, graph?: string) {
+export function getGraphStore(datasetName: string, graph?: string) {
     return graphStoreClient('GET', datasetName, graph);
 }
 
@@ -165,7 +165,7 @@ export function graphStoreGet(datasetName: string, graph?: string) {
  * 
  * @see <https://www.w3.org/TR/sparql11-http-rdf-update/#http-put>
  */
-export function graphStorePut(datasetName: string, uploadFilePath: string, graph?: string, ) {
+export function putGraphStore(datasetName: string, uploadFilePath: string, graph?: string, ) {
     return graphStoreClient('PUT', datasetName, graph, uploadFilePath);
 }
 
@@ -177,7 +177,7 @@ export function graphStorePut(datasetName: string, uploadFilePath: string, graph
  * 
  * @see <https://www.w3.org/TR/sparql11-http-rdf-update/#http-post>
  */
-export function graphStorePost(datasetName: string, uploadFilePath: string, graph?: string, ) {
+export function postGraphStore(datasetName: string, uploadFilePath: string, graph?: string, ) {
     return graphStoreClient('POST', datasetName, graph, uploadFilePath);
 }
 
@@ -189,7 +189,7 @@ export function graphStorePost(datasetName: string, uploadFilePath: string, grap
  * 
  * @see <https://www.w3.org/TR/sparql11-http-rdf-update/#http-delete>
  */
-export function graphStoreDelete(datasetName: string, graph?: string) {
+export function deleteGraphStore(datasetName: string, graph?: string) {
     return graphStoreClient('DELETE', datasetName, graph);
 }
 
@@ -263,13 +263,6 @@ function setUploadConfig(uploadFilePath: string, config: AxiosRequestConfig) {
     formData.append('uploadfile', createReadStream(uploadFilePath));
     config.data = formData;
     config.headers = formData.getHeaders();
-}
-
-/**
- * Get the Dataset GraphStore Upload Path
- */
-function dataUploadPath(datasetName: string) {
-
 }
 
 /**

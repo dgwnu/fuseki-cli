@@ -15,8 +15,8 @@ import { Observable, throwError } from 'rxjs';
  * CLI Library Modules
  */
 import { services, ping, server, datasetConfig, 
-    addDataset, removeDataset, graphStorePut, graphStoreGet, graphStorePost, 
-    graphStoreDelete } from '../lib/dgwnu-fuseki-utils';
+    addDataset, removeDataset, putGraphStore, postGraphStore
+} from '../lib/dgwnu-fuseki-utils';
 
 //
 // START CLI Script
@@ -148,9 +148,9 @@ function putData(parms: string[]) {
     let observerable: Observable<any>;
 
     if (parms.length == 2) {
-        observerable = graphStorePut(parms[0], parms[1]);
+        observerable = putGraphStore(parms[0], parms[1]);
     } else {
-        observerable = throwError('Excact 2 parms (datasetName and tripleFilePath) required for "refresh" command');
+        observerable = throwError('Excact 2 parms (datasetName and tripleFilePath) required for "put" command');
     }
 
     return observerable;
@@ -160,9 +160,9 @@ function postData(parms: string[]) {
     let observerable: Observable<any>;
 
     if (parms.length == 2) {
-        observerable = graphStorePost(parms[0], parms[1]);
+        observerable = postGraphStore(parms[0], parms[1]);
     } else {
-        observerable = throwError('Excact 2 parms (datasetName and tripleFilePath) required for "update" command');
+        observerable = throwError('Excact 2 parms (datasetName and tripleFilePath) required for "post" command');
     }
 
     return observerable;
