@@ -153,7 +153,7 @@ export function removeDataset(datasetName: string) {
  * @param triplesFilePath Path to triples file with refresh data
  * @param graph Other then default graph IRI (http://example.graph.sample)
  * 
- * @see SPARQL 1.1 Graph Store HTTP Protocol <https://www.w3.org/TR/sparql11-http-rdf-update>
+ * @see <https://www.w3.org/TR/sparql11-http-rdf-update/#http-put>
  */
 export function graphStorePut(datasetName: string, triplesFilePath: string, graph: string = 'default' ) {
     const formData = new FormData();
