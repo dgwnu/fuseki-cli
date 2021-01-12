@@ -7,8 +7,8 @@ exports.systemConfigInfo = exports.execOsShellCommand = void 0;
 /**
  * Node System Imports
  */
-var child_process_1 = require("child_process");
-var os_1 = require("os");
+const child_process_1 = require("child_process");
+const os_1 = require("os");
 /**
  * NPM Package Imports
  */

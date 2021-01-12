@@ -8,7 +8,7 @@
 import { createReadStream } from 'fs';
 import axios, { AxiosRequestConfig } from 'axios';
 import { Observable, throwError } from 'rxjs';
-import * as FormData from 'form-data';
+import FormData from 'form-data';
 
 /**
  * Local Library Imports
