@@ -18,7 +18,7 @@ At this moment there is only some prelimannary support to provide and configure 
 ### Service-commands
 
 ````
-npx fuseki-cli run | start | restart | stop
+npx fuseki-cli run | start | restart | stop | ping | server
 ````
 
 | Command | Function |
@@ -27,6 +27,16 @@ npx fuseki-cli run | start | restart | stop
 | start | Start a Fuseki Server Service (will restart after reboot) |
 | restart | Restart a Fuseki Server Service |
 | stop | Stop a Fuseki Server Service |
+| ping | Fuseki Server is Up or Down status check |
+| server | Fuseki Server Configuration |
+
+### Dataset-command
+````
+npx fuseki-cli datasets (datasetname)
+````
+| server | Display Fuseki server configuration |
+| datasets | 
+
 
 _Other commands with other Service functionality will be added soon (in 2021 ;-))._
 
@@ -36,10 +46,10 @@ This package provides a __TypeScript__ based library to reuse and /or extend the
   
 Import library in your TypeScript-application and use it to make extended functionality:
 ````
-import { fusekiServices } from '@dgwnu/fuseki-cli';
+import { services } from '@dgwnu/fuseki-cli';
 
 // run Fuseki Server
-const output = fusekiServices('run');
+const output = services('run');
 console.log(`Fuseki services start output ${output}`);
 
 ````
