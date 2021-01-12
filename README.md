@@ -30,13 +30,14 @@ npx fuseki-cli run | start | restart | stop | ping | server
 | ping | Fuseki Server is Up or Down status check |
 | server | Fuseki Server Configuration |
 
-### Dataset-command
+### Dataset-commands
 ````
-npx fuseki-cli datasets (datasetname)
+npx fuseki-cli datasets (datasetName)
 ````
-| server | Display Fuseki server configuration |
-| datasets | 
-
+| Command | Parameters | Function |
+|---------|:------------|:------------|
+| dataset | _datasetName_ | Gets configuration of all datasets (or specified by _datasetName_) |
+| 
 
 _Other commands with other Service functionality will be added soon (in 2021 ;-))._
 
