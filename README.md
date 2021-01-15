@@ -1,6 +1,6 @@
 # Fuseki CLI
 
-Fuseki is a populair SparQL / Tripple Store implementation in Java that is simple and robust to use. See [Jena Apache Jena Fuseki documentation](https://jena.apache.org/documentation/fuseki2/index.html) for more info.  
+Fuseki is a populair SPARQL / Triplestore implementation in Java that is simple and robust to use. See [Jena Apache Jena Fuseki documentation](https://jena.apache.org/documentation/fuseki2/index.html) for more info.  
   
 This pre-release only supports __Homebrew__ based __Fuseki Sever__ installations on the __Mac-platform__ (darwin). Mac Fuseki Server installation and configuration is based on HomeBrew.  
 [See install Fuseki on a Mac with Brew](https://brewinstall.org/install-fuseki-on-mac-with-brew/).
@@ -15,7 +15,7 @@ npm install https://github.com/dgwnu/fuseki-cli.git --save
 
 At this moment there is only some prelimannary support to provide and configure Fuseki-services.
 
-### Service-commands
+### Services
 
 ````
 npx fuseki-cli run | start | restart | stop | ping | server
@@ -30,14 +30,15 @@ npx fuseki-cli run | start | restart | stop | ping | server
 | ping | Fuseki Server is Up or Down status check |
 | server | Fuseki Server Configuration |
 
-### Dataset-commands
+### Datasets
 ````
-npx fuseki-cli datasets (datasetName)
+npx fuseki-cli datasets <parameters>
 ````
-| Command | Parameters | Function |
-|---------|:------------|:------------|
-| dataset | _datasetName_ | Gets configuration of all datasets (or specified by _datasetName_) |
-| 
+| Parameters | Function |
+|:------------|:------------|
+| (<_datasetName_>) | Gets configuration of all datasets (or one specified by <_datasetName_>) |
+| _-a_ (or _-add_) <_assemblerFilePath_> | Add dataset with <_assemblerFilePath_> configuration |
+| _-r_ (or _-remove_) <_datasetName_> | Remove dataset specified by <_datasetName_>
 
 _Other commands with other Service functionality will be added soon (in 2021 ;-))._
 

@@ -129,9 +129,9 @@ function datasets(parms: string[]) {
         // two parms supplied
         // add or delete dataset
 
-        if (['-a', '--add'].find(parm => parm == parms[0])) {
+        if (['-a', '-add'].find(parm => parm == parms[0])) {
             observerable = addDataset(parms[1])
-        } else if (['-d', '-delete'].find(parm => parm == parms[0])) {
+        } else if (['-r', '-remove'].find(parm => parm == parms[0])) {
             observerable = removeDataset(parms[1])
         } else {
             observerable = throwError(`Parms "${parms[0]} ${parms[1]}" are not correct specified!`);
