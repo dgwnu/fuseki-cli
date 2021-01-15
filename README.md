@@ -40,6 +40,18 @@ npx fuseki-cli datasets <parameters>
 | _-a_ (or _-add_) <_assemblerFilePath_> | Add dataset with <_assemblerFilePath_> configuration |
 | _-r_ (or _-remove_) <_datasetName_> | Remove dataset specified by <_datasetName_>
 
+### GraphStore Data Upload
+````
+npx fuseki-cli put | post <datasetName> <uploadFilePath>
+````
+Parameters must always be specified:  
+- <__datasetName__> the dataset to update
+- <__uploadFilePath__> the location of data file to upload   
+
+| Command | Function |
+|---------|:------------|
+| put | Replace all with new data |
+| post | Update (non-blank) nodes with new data (and add non-exsiting) |
 _Other commands with other Service functionality will be added soon (in 2021 ;-))._
 
 ## CLI-library
