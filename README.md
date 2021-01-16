@@ -1,8 +1,8 @@
 # Fuseki CLI
 
-Fuseki is a populair SPARQL / Triplestore implementation in Java that is simple and robust to use. See [Jena Apache Jena Fuseki documentation](https://jena.apache.org/documentation/fuseki2/index.html) for more info.  
+Fuseki is a populair SPARQL / Triplestore implementation in Java that is simple and robust to use. See [Jena Apache Jena Fuseki documentation](https://jena.apache.org/documentation/fuseki2/index.html) for more info. The Fuseki CLI is a build as a __TypeScript__ based _wrapper_ to use and support the services that are provided from the Open Source version.
   
-This pre-release only supports __Homebrew__ based __Fuseki Sever__ installations on the __Mac-platform__ (darwin). Mac Fuseki Server installation and configuration is based on HomeBrew.  
+This pre-release only supports __Homebrew__ based __Fuseki Sever__ installations on the __Mac-platform__ (darwin). Mac Fuseki Server installation and configuration is based on HomeBrew.
 [See install Fuseki on a Mac with Brew](https://brewinstall.org/install-fuseki-on-mac-with-brew/).
 
 ## NPM installation
@@ -18,13 +18,13 @@ At this moment there is only some prelimannary support to provide and configure 
 ### Services
 
 ````
-npx fuseki-cli run | start | restart | stop | ping | server
+npx fuseki-cli < run | start | restart | stop | ping | server >
 ````
 
 | Command | Function |
 |---------|:------------|
-| run | Run a Fuseki Server Service (will not restart after reboot). |
-| start | Start a Fuseki Server Service (will restart after reboot) |
+| run | Run local Fuseki Server |
+| start | Start local Fuseki Server (restart after reboot) |
 | restart | Restart a Fuseki Server Service |
 | stop | Stop a Fuseki Server Service |
 | ping | Fuseki Server is Up or Down status check |
@@ -40,9 +40,9 @@ npx fuseki-cli datasets <parameters>
 | _-a_ (or _-add_) <_assemblerFilePath_> | Add dataset with <_assemblerFilePath_> configuration |
 | _-r_ (or _-remove_) <_datasetName_> | Remove dataset specified by <_datasetName_>
 
-### GraphStore Data Upload
+### GraphStore Data Management
 ````
-npx fuseki-cli put | post <datasetName> <uploadFilePath>
+npx fuseki-cli < put | post > <datasetName> <uploadFilePath>
 ````
 Parameters must always be specified:  
 - <__datasetName__> the dataset to update
