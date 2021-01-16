@@ -22,7 +22,7 @@
     "url": "https://github.com/dgwnu/fuseki-cli/issues"
   },
   "homepage": "https://github.com/dgwnu/fuseki-cli#readme",
-  "peerDependencies": {
+  "dependencies": {
     "axios": "^0.21.1",
     "form-data": "^3.0.0",
     "rxjs": "^6.6.3"
