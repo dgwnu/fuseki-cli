@@ -94,10 +94,10 @@ function datasets(parms) {
     else if (parms.length == 2) {
         // two parms supplied
         // add or delete dataset
-        if (['-a', '--add'].find(parm => parm == parms[0])) {
+        if (['-a', '-add'].find(parm => parm == parms[0])) {
             observerable = dgwnu_fuseki_utils_1.addDataset(parms[1]);
         }
-        else if (['-d', '-delete'].find(parm => parm == parms[0])) {
+        else if (['-r', '-remove'].find(parm => parm == parms[0])) {
             observerable = dgwnu_fuseki_utils_1.removeDataset(parms[1]);
         }
         else {
