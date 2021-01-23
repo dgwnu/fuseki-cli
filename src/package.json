@@ -1,5 +1,5 @@
 {
-  "name": "@dgwnu/fuseki-dev",
+  "name": "@dgwnu/fuseki-cli-dev",
   "version": "0.0.1",
   "description": "Fuseki NPM CLI application development in TypeScript",
   "scripts": {
