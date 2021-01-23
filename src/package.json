@@ -2,19 +2,20 @@
   "name": "@dgwnu/fuseki-cli-dev",
   "version": "0.0.1",
   "description": "Fuseki NPM CLI application development in TypeScript",
+  "cli": "ts-node -P ts-node-config.json bin/fuseki-service-cli.ts",
   "scripts": {
     "build": "npm run build:lib && npm run build:cli",
     "build:cli": "tsc -p ts-cli-config.json",
     "build:lib": "rollup -c",
     "test:exec:os:shell:command": "ts-node -P ts-node-config.json test/exec-os-shell-command.ts ls",
     "test:post:ontology": "ts-node -P ts-node-config.json test/post-ontology.ts",
-    "cli:run": "ts-node -P ts-node-config.json bin/fuseki-cli.ts run",
-    "cli:start": "ts-node -P ts-node-config.json bin/fuseki-cli.ts start",
-    "cli:restart": "ts-node -P ts-node-config.json bin/fuseki-cli.ts restart",
-    "cli:stop": "ts-node -P ts-node-config.json bin/fuseki-cli.ts stop",
-    "cli:ping": "ts-node -P ts-node-config.json bin/fuseki-cli.ts ping",
-    "cli:server": "ts-node -P ts-node-config.json bin/fuseki-cli.ts server",
-    "cli:datasets": "ts-node -P ts-node-config.json bin/fuseki-cli.ts datasets"
+    "cli:run": "$npm_package_cli run",
+    "cli:start": "$npm_package_cli start",
+    "cli:restart": "$npm_package_cli restart",
+    "cli:stop": "$npm_package_cli stop",
+    "cli:ping": "$npm_package_cli ping",
+    "cli:server": "$npm_package_cli server",
+    "cli:datasets": "$npm_package_cli datasets"
   },
   "repository": {
     "type": "git",
@@ -34,7 +35,7 @@
   "homepage": "https://github.com/dgwnu/tripple-stores#readme",
   "devDependencies": {
     "@types/node": "^14.14.20",
-    "fuseki-service": "git+https://github.com/dgwnu/fuseki-service.git",
+    "@dgwnu/fuseki-service": "git+https://github.com/dgwnu/fuseki-service.git",
     "rollup": "^2.35.1",
     "rollup-plugin-typescript2": "^0.29.0",
     "ts-node": "^9.1.1",
