@@ -7,6 +7,7 @@
     "build": "npm run build:lib && npm run build:cli",
     "build:cli": "tsc -p ts-cli-config.json",
     "build:lib": "rollup -c",
+    "start": "fuseki-service-cli run",
     "test:exec:os:shell:command": "ts-node -P ts-node-config.json test/exec-os-shell-command.ts ls",
     "test:post:ontology": "ts-node -P ts-node-config.json test/post-ontology.ts",
     "cli:run": "$npm_package_cli run",
