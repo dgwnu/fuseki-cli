@@ -14,7 +14,7 @@ import { Observable, throwError } from 'rxjs';
 /**
  * CLI Library Modules
  */
-import { services, ping, server, datasetConfig, 
+import { ping, server, datasetConfig, 
     addDataset, removeDataset, putGraphStore, postGraphStore
 } from '../lib/dgwnu-fuseki-utils';
 
@@ -35,26 +35,6 @@ if (argv[4]) {
 console.log(`DGWNU - Fuseki CLI - ${command} ${parms}`);
 
 switch (command) {
-
-    case 'run': {
-        displayResult(services('run'));
-        break;
-    }
-
-    case 'start': {
-        displayResult(services('start'));
-        break;
-    }
-
-    case 'restart': {
-        displayResult(services('restart'));
-        break;
-    }
-
-    case 'stop': {
-        displayResult(services('stop'));
-        break;
-    }
 
     case 'ping': {
         ping.subscribe(
@@ -98,7 +78,6 @@ switch (command) {
 
     default: {
         console.log(`Missing or invalig param ${command}`);
-        console.log('Param should be a: run, start, restart, stop');
         break;
     }
 }
