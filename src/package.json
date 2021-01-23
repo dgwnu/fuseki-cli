@@ -10,10 +10,6 @@
     "start": "fuseki-service-cli run",
     "test:exec:os:shell:command": "ts-node -P ts-node-config.json test/exec-os-shell-command.ts ls",
     "test:post:ontology": "ts-node -P ts-node-config.json test/post-ontology.ts",
-    "cli:run": "$npm_package_cli run",
-    "cli:start": "$npm_package_cli start",
-    "cli:restart": "$npm_package_cli restart",
-    "cli:stop": "$npm_package_cli stop",
     "cli:ping": "$npm_package_cli ping",
     "cli:server": "$npm_package_cli server",
     "cli:datasets": "$npm_package_cli datasets"
