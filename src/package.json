@@ -39,6 +39,7 @@
   "homepage": "https://github.com/dgwnu/tripple-stores#readme",
   "devDependencies": {
     "@types/node": "^14.14.20",
+    "fuseki-service": "git+https://github.com/dgwnu/fuseki-service.git",
     "rollup": "^2.35.1",
     "rollup-plugin-typescript2": "^0.29.0",
     "ts-node": "^9.1.1",
