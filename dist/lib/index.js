@@ -2,8 +2,6 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var child_process = require('child_process');
-var os = require('os');
 var fs = require('fs');
 var axios = require('axios');
 var rxjs = require('rxjs');
@@ -15,55 +13,15 @@ var axios__default = /*#__PURE__*/_interopDefaultLegacy(axios);
 var FormData__default = /*#__PURE__*/_interopDefaultLegacy(FormData);
 
 /**
- * Generic DGWNU Paackte TypeScript Tripple Store Utilities
- */
-/**
- * NPM Package Imports
- */
-/**
- * Execute Shell Command in Operating System Shell
- * @param command Shell Command to exec in de Operating System Shell
- * @returns Shell Command result output
- */
-function execOsShellCommand(osShellcommand) {
-    return child_process.execSync(osShellcommand).toString();
-}
-/**
- * System Configuration Information
- */
-function systemConfigInfo() {
-    return { osType: os.type(), osRelease: os.release(), osPlatform: os.platform() };
-}
-
-/**
  * DGWNU Utils to use Fuseki Services
+ */
+/**
+ * Local Library Imports
  */
 /**
  * Fuseki Server Defaults
  */
 axios__default['default'].defaults.baseURL = 'http://localhost:3030';
-/**
- * Run Fuseki-server as a service (will nor restart after reboot)
- * @returns Run Fuseki Service execution results
- */
-function services(command) {
-    var osPlatform = systemConfigInfo().osPlatform;
-    var runResult = undefined;
-    switch (osPlatform) {
-        case 'darwin': {
-            // Mac OS(X) platform
-            var osShellCommand = "brew services " + command + " fuseki";
-            console.log(osShellCommand);
-            runResult = execOsShellCommand(osShellCommand);
-            break;
-        }
-        default: {
-            console.log("OS Platform " + osPlatform + " not (yet) supported!");
-            break;
-        }
-    }
-    return runResult;
-}
 /**
  * Fuseki Server Protocol - Ping
  */
@@ -314,12 +272,9 @@ function mapErrorMsg(error) {
 exports.addDataset = addDataset;
 exports.datasetConfig = datasetConfig;
 exports.deleteGraphStore = deleteGraphStore;
-exports.execOsShellCommand = execOsShellCommand;
 exports.getGraphStore = getGraphStore;
 exports.ping = ping;
 exports.postGraphStore = postGraphStore;
 exports.putGraphStore = putGraphStore;
 exports.removeDataset = removeDataset;
 exports.server = server;
-exports.services = services;
-exports.systemConfigInfo = systemConfigInfo;

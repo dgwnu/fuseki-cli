@@ -27,22 +27,6 @@ if (process_1.argv[4]) {
 }
 console.log(`DGWNU - Fuseki CLI - ${command} ${parms}`);
 switch (command) {
-    case 'run': {
-        displayResult(dgwnu_fuseki_utils_1.services('run'));
-        break;
-    }
-    case 'start': {
-        displayResult(dgwnu_fuseki_utils_1.services('start'));
-        break;
-    }
-    case 'restart': {
-        displayResult(dgwnu_fuseki_utils_1.services('restart'));
-        break;
-    }
-    case 'stop': {
-        displayResult(dgwnu_fuseki_utils_1.services('stop'));
-        break;
-    }
     case 'ping': {
         dgwnu_fuseki_utils_1.ping.subscribe(up => displayResult(up), down => displayResult(down));
         break;
@@ -65,7 +49,6 @@ switch (command) {
     }
     default: {
         console.log(`Missing or invalig param ${command}`);
-        console.log('Param should be a: run, start, restart, stop');
         break;
     }
 }

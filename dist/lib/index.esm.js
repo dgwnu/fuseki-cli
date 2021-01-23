@@ -1,60 +1,18 @@
-import { execSync } from 'child_process';
-import { type, release, platform } from 'os';
 import { createReadStream } from 'fs';
 import axios from 'axios';
 import { Observable, throwError } from 'rxjs';
 import FormData from 'form-data';
 
 /**
- * Generic DGWNU Paackte TypeScript Tripple Store Utilities
- */
-/**
- * NPM Package Imports
- */
-/**
- * Execute Shell Command in Operating System Shell
- * @param command Shell Command to exec in de Operating System Shell
- * @returns Shell Command result output
- */
-function execOsShellCommand(osShellcommand) {
-    return execSync(osShellcommand).toString();
-}
-/**
- * System Configuration Information
- */
-function systemConfigInfo() {
-    return { osType: type(), osRelease: release(), osPlatform: platform() };
-}
-
-/**
  * DGWNU Utils to use Fuseki Services
+ */
+/**
+ * Local Library Imports
  */
 /**
  * Fuseki Server Defaults
  */
 axios.defaults.baseURL = 'http://localhost:3030';
-/**
- * Run Fuseki-server as a service (will nor restart after reboot)
- * @returns Run Fuseki Service execution results
- */
-function services(command) {
-    var osPlatform = systemConfigInfo().osPlatform;
-    var runResult = undefined;
-    switch (osPlatform) {
-        case 'darwin': {
-            // Mac OS(X) platform
-            var osShellCommand = "brew services " + command + " fuseki";
-            console.log(osShellCommand);
-            runResult = execOsShellCommand(osShellCommand);
-            break;
-        }
-        default: {
-            console.log("OS Platform " + osPlatform + " not (yet) supported!");
-            break;
-        }
-    }
-    return runResult;
-}
 /**
  * Fuseki Server Protocol - Ping
  */
@@ -302,4 +260,4 @@ function mapErrorMsg(error) {
     return errorStr;
 }
 
-export { addDataset, datasetConfig, deleteGraphStore, execOsShellCommand, getGraphStore, ping, postGraphStore, putGraphStore, removeDataset, server, services, systemConfigInfo };
+export { addDataset, datasetConfig, deleteGraphStore, getGraphStore, ping, postGraphStore, putGraphStore, removeDataset, server };

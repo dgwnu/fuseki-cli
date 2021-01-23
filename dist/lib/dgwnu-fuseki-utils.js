@@ -6,7 +6,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteGraphStore = exports.postGraphStore = exports.putGraphStore = exports.getGraphStore = exports.removeDataset = exports.addDataset = exports.datasetConfig = exports.server = exports.ping = exports.services = void 0;
+exports.deleteGraphStore = exports.postGraphStore = exports.putGraphStore = exports.getGraphStore = exports.removeDataset = exports.addDataset = exports.datasetConfig = exports.server = exports.ping = void 0;
 /**
  * Node Package Imports
  */
@@ -17,34 +17,10 @@ const form_data_1 = __importDefault(require("form-data"));
 /**
  * Local Library Imports
  */
-const dgwnu_system_utils_1 = require("./dgwnu-system-utils");
 /**
  * Fuseki Server Defaults
  */
 axios_1.default.defaults.baseURL = 'http://localhost:3030';
-/**
- * Run Fuseki-server as a service (will nor restart after reboot)
- * @returns Run Fuseki Service execution results
- */
-function services(command) {
-    const osPlatform = dgwnu_system_utils_1.systemConfigInfo().osPlatform;
-    let runResult = undefined;
-    switch (osPlatform) {
-        case 'darwin': {
-            // Mac OS(X) platform
-            const osShellCommand = `brew services ${command} fuseki`;
-            console.log(osShellCommand);
-            runResult = dgwnu_system_utils_1.execOsShellCommand(osShellCommand);
-            break;
-        }
-        default: {
-            console.log(`OS Platform ${osPlatform} not (yet) supported!`);
-            break;
-        }
-    }
-    return runResult;
-}
-exports.services = services;
 /**
  * Fuseki Server Protocol - Ping
  */

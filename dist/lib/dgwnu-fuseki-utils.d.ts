@@ -3,11 +3,6 @@
  */
 import { Observable } from 'rxjs';
 /**
- * Run Fuseki-server as a service (will nor restart after reboot)
- * @returns Run Fuseki Service execution results
- */
-export declare function services(command: 'run' | 'start' | 'restart' | 'stop'): string | undefined;
-/**
  * Fuseki Server Protocol - Ping
  */
 export declare const ping: Observable<string>;
