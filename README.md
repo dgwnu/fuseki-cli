@@ -2,8 +2,11 @@
 
 Fuseki is a populair SPARQL / Triplestore implementation in Java that is simple and robust to use. See [Jena Apache Jena Fuseki documentation](https://jena.apache.org/documentation/fuseki2/index.html) for more info. The Fuseki CLI is a build as a __TypeScript__ based _wrapper_ to use and support the services that are provided from the Open Source version.
   
-This pre-release only supports __Homebrew__ based __Fuseki Sever__ installations on the __Mac-platform__ (darwin). Mac Fuseki Server installation and configuration is based on HomeBrew.
-[See install Fuseki on a Mac with Brew](https://brewinstall.org/install-fuseki-on-mac-with-brew/).
+## Jena Fuseki Server Dependencies
+
+This pre-release only supports a local Jena Fuseki Service as a peer depedency for this package. See for info how to install and use: [@dgwnu/fuseki-service](https://github.com/dgwnu/fuseki-service).  
+_Other server installations could work but are not tested (or in scope). Hint: Any localhost installation should work like HomeBrew but there might be some authorization issues to resolve in "shiro.ini"_
+
 
 ## NPM installation
 
