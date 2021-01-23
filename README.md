@@ -13,20 +13,16 @@ npm install https://github.com/dgwnu/fuseki-cli.git --save
 
 ## CLI-commands
 
-At this moment there is only some prelimannary support to provide and configure Fuseki-services.
+At this moment there is only some prelimannary support to configure and use Fuseki-services Api.
 
 ### Services
 
 ````
-npx fuseki-cli < run | start | restart | stop | ping | server >
+npx fuseki-cli < ping | server >
 ````
 
 | Command | Function |
 |---------|:------------|
-| run | Run local Fuseki Server |
-| start | Start local Fuseki Server (restart after reboot) |
-| restart | Restart a Fuseki Server Service |
-| stop | Stop a Fuseki Server Service |
 | ping | Fuseki Server is Up or Down status check |
 | server | Fuseki Server Configuration |
 
@@ -60,10 +56,12 @@ This package provides a __TypeScript__ based library to reuse and /or extend the
   
 Import library in your TypeScript-application and use it to make extended functionality:
 ````
-import { services } from '@dgwnu/fuseki-cli';
+import { ping } from '@dgwnu/fuseki-cli';
 
-// run Fuseki Server
-const output = services('run');
-console.log(`Fuseki services start output ${output}`);
+// Use Fuseki Server Ping Service
+ping.subscribe(
+    up => console.log(up),
+    down => console.log(down)
+);
 
 ````
