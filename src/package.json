@@ -2,7 +2,7 @@
   "name": "@dgwnu/fuseki-cli-dev",
   "version": "0.0.1",
   "description": "Fuseki NPM CLI application development in TypeScript",
-  "cli": "ts-node -P ts-node-config.json bin/fuseki-service-cli.ts",
+  "cli": "ts-node -P ts-node-config.json bin/fuseki-cli.ts",
   "scripts": {
     "build": "npm run build:lib && npm run build:cli",
     "build:cli": "tsc -p ts-cli-config.json",
