@@ -7,18 +7,6 @@ Fuseki is a populair SPARQL / Triplestore implementation in Java that is simple 
 This pre-release only supports a local Jena Fuseki Service as a peer depedency for this package. See for info how to install and use: [@dgwnu/fuseki-service](https://github.com/dgwnu/fuseki-service).  
 _Other server installations could work but are not tested (or in scope). Hint: Any localhost installation should work like HomeBrew but there might be some authorization issues to resolve in "shiro.ini"_
 
-## Start the Fuseki as Background Service
-
-Using the NPM processmonitor [PM2](https://github.com/Unitech/pm2) it is possible to start the Fuseki Service permanent as a background service.
-
-First install PM2 as a global NPM packeage:
-````
-<sudo> npm install pm2 -g
-````
-
-Start __...(PM to-do)__
-
-
 ## NPM installation
 
 ````
