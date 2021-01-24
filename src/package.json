@@ -12,8 +12,6 @@
     "stop": "fuseki-service-cli stop && pm2 l",
     "restart": "fuseki-service-cli restart && pm2 l",
     "pm2:list": "pm2 l",
-    "test:exec:os:shell:command": "ts-node -P ts-node-config.json test/exec-os-shell-command.ts ls",
-    "test:post:ontology": "ts-node -P ts-node-config.json test/post-ontology.ts",
     "cli:ping": "$npm_package_cli ping",
     "cli:server": "$npm_package_cli server",
     "cli:datasets": "$npm_package_cli datasets"
