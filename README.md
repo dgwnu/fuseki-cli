@@ -57,7 +57,7 @@ _Other commands with other Service functionality will be added soon (in 2021 ;-)
 This package provides a __TypeScript__ based library to reuse and /or extend the CLI-functionality.  
   
 Import library in your TypeScript-application and use it to make extended functionality:
-````
+````ts
 import { ping } from '@dgwnu/fuseki-cli';
 
 // Use Fuseki Server Ping Service
