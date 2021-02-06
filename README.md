@@ -31,7 +31,7 @@ npx fuseki < ping | server >
 ### Datasets
 
 ````
-npx fuseki-cli datasets <parameters>
+npx fuseki datasets <parameters>
 ````
 
 | Parameters | Function |
@@ -42,7 +42,7 @@ npx fuseki-cli datasets <parameters>
 
 ### GraphStore Data Management
 ````
-npx fuseki-cli < put | post > <datasetName> <uploadFilePath>
+npx fuseki < put | post > <datasetName> <uploadFilePath>
 ````
 Parameters must always be specified:  
 - <__datasetName__> the dataset to update
