@@ -1,4 +1,4 @@
-# Fuseki CLI
+# Fuseki CLI [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Fuseki is a populair SPARQL / Triplestore implementation in Java that is simple and robust to use. See [Jena Apache Jena Fuseki documentation](https://jena.apache.org/documentation/fuseki2/index.html) for more info. The Fuseki CLI is a build as a __TypeScript__ based _wrapper_ to use and support the services that are provided from the Open Source version.
   
@@ -57,7 +57,7 @@ _Other commands with other Service functionality will be added soon (in 2021 ;-)
 This package provides a __TypeScript__ based library to reuse and /or extend the CLI-functionality.  
   
 Import library in your TypeScript-application and use it to make extended functionality:
-````
+````ts
 import { ping } from '@dgwnu/fuseki-cli';
 
 // Use Fuseki Server Ping Service
