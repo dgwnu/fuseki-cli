@@ -10,6 +10,7 @@
 import { argv } from 'process';
 import { inspect } from 'util';
 import { Observable, throwError } from 'rxjs';
+import * as Colors from 'colors';
 
 /**
  * CLI Library Modules
@@ -17,6 +18,12 @@ import { Observable, throwError } from 'rxjs';
 import { ping, server, datasetConfig, 
     addDataset, removeDataset, putGraphStore, postGraphStore
 } from '../lib/dgwnu-fuseki-utils';
+
+/**
+ * colors constant that is used for console.log()
+ * Based on <https://www.voidcanvas.com/make-console-log-output-colorful-and-stylish-in-browser-node/>
+ */
+const colors = Colors;
 
 //
 // START CLI Script
@@ -32,47 +39,47 @@ if (argv[4]) {
     parms.push(argv[4]);
 }
 
-console.log(`DGWNU - Fuseki CLI - ${command} ${parms}`);
+console.log(`DGWNU - Fuseki CLI - ${command} ${parms}`.bgRed.yellow.bold);
 
 switch (command) {
 
     case 'ping': {
-        ping.subscribe(
-            up => displayResult(up),
-            down => displayResult(down)
-        );
+        ping.subscribe({
+            next: (up) => displayResult(up),
+            error: (down) => displayResult(down)
+        });
         break;
     }
 
     case 'server': {
-        server.subscribe(
-            data => displayResult(data),
-            error => displayResult(error)
-        );
+        server.subscribe({
+            next: (data) => displayResult(data),
+            error: (error) => displayResult(error)
+        });
         break;
     }
 
     case 'datasets': {
-        datasets(parms).subscribe(
-            data => displayResult(data),
-            error => displayResult(error)
-        );
+        datasets(parms).subscribe({
+            next: (data) => displayResult(data),
+            error: (error) => displayResult(error)
+        });
         break;
     }
 
     case 'put': {
-        putData(parms).subscribe(
-            data => displayResult(data),
-            error => displayResult(error)
-        );
+        putData(parms).subscribe({
+            next: (data) => displayResult(data),
+            error: (error) => displayResult(error)
+        });
         break;
     }
 
     case 'post': {
-        postData(parms).subscribe(
-            data => displayResult(data),
-            error => displayResult(error)
-        );
+        postData(parms).subscribe({
+            next: (data) => displayResult(data),
+            error: (error) => displayResult(error)
+        });
         break;
     }
 
