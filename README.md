@@ -20,7 +20,7 @@ At this moment there is only some prelimannary support to configure and use Fuse
 ### Services
 
 ````
-npx fuseki-cli < ping | server >
+npx fuseki < ping | server >
 ````
 
 | Command | Function |
@@ -29,9 +29,11 @@ npx fuseki-cli < ping | server >
 | server | Fuseki Server Configuration |
 
 ### Datasets
+
 ````
 npx fuseki-cli datasets <parameters>
 ````
+
 | Parameters | Function |
 |:------------|:------------|
 | (<_datasetName_>) | Gets configuration of all datasets (or one specified by <_datasetName_>) |
@@ -57,13 +59,16 @@ _Other commands with other Service functionality will be added soon (in 2021 ;-)
 This package provides a __TypeScript__ based library to reuse and /or extend the CLI-functionality.  
   
 Import library in your TypeScript-application and use it to make extended functionality:
+
 ````ts
 import { ping } from '@dgwnu/fuseki-cli';
 
 // Use Fuseki Server Ping Service
-ping.subscribe(
-    up => console.log(up),
-    down => console.log(down)
-);
+ping.subscribe({
+    next: (up) => console.log(up),
+    error: (down) => console.log(down)
+});
 
 ````
+
+The [Fuseki CLI source](src/bin/fuseki-cli.ts) provides all examples you need.
